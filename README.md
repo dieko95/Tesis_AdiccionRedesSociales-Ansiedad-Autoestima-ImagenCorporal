@@ -1,1 +1,1 @@
-# Tesis_AdiccionRedesSociales-Ansiedad-Autoestima-ImagenCorporal
+# Tesis: Relación entre Adiccion a Redes Sociales, Ansiedad, Autoestima e Imagen Corporal
