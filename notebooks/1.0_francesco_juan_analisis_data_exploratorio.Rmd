@@ -8,22 +8,25 @@ date: '2022-10-04'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r}
+library(readr)
+library(readxl)
+library(dplyr)
+library(skimr)
+library(dlookr) 
+library(inspectdf) 
+library(stringr)
+library(ggplot2)
+library(caret)
+library(ggiraphExtra)
+library(rcompanion)
+library(naniar)
+library(showtext)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#Leer data
+original_df <- read_delim("../data/raw/Data para R.csv", 
+                          ";", escape_double = FALSE, locale = locale(decimal_mark = ","), 
+                          trim_ws = TRUE)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+View(original_df)
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
