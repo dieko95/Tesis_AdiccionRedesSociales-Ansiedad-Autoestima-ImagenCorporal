@@ -188,14 +188,28 @@ vis_miss(original_df, sort_miss = TRUE)
         geom_boxplot()
 ```
 
-#analisis descriptivo data
+#analisis descriptivo municipio
 
 ```{r}
+#municipio
+
+original_df%>%
+  ggplot(aes(original_df$municipio, fill = municipio)) +
+    geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Municipios", y= "Frecuencia", title = "Muncipios Encuestados", subtitle = "Cantidad de personas por municipio") +
+    guides(fill = guide_legend(title = "Municipios"),
+           colour = guide_legend(title = "Municipio"))
+
 #Chi Cuadrado Municipio
   
 chisq.test(table(original_df$municipio))
 
-  #Sexo
+```
+
+#analisis descriptivo univariante sexo
+
+```{r}
+#Sexo
 
 original_df%>%
   ggplot(aes(original_df$sexo, fill = sexo)) +
@@ -205,18 +219,32 @@ labs(x= "Sexos", y= "Frecuencia", title = "Sexo", subtitle = "Cantidad de person
   #Chi Cuadrado Sexo
 
 chisq.test(table(original_df$sexo))
+```
 
-  #Edad
+#analisis descriptivo univariante edad
+
+```{r}
+#Edad
 
 original_df%>%
   ggplot(aes(original_df$edad, fill = edad)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
   labs(x= "Edades", y= "Frecuencia", title = "Edades Encuestadas", subtitle = "Cantidad de personas por edad") + guides(fill = guide_legend(title = "Edades"),colour = guide_legend(title = "Edades"))
+```
 
-  #Tipo de dispositivo
+#analisis descriptivo univariante tipo de dispositivo
+
+```{r}
+#Tipo de dispositivo
 
 original_df%>%
   ggplot(aes(original_df$tipo_dispositivo_rrss, fill = tipo_dispositivo_rrss)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Tipos de dispositivos", y= "Frecuencia", title = "Dispositivos frecuentes", subtitle = "Uso de dispositivos para consumo Redes Sociales") + guides(fill = guide_legend(title = "Dispositivos"),colour = guide_legend(title = "Dispositivos"))
+```
+
+#analisis descriptivo bivariante
+
+```{r}
+
 ```
