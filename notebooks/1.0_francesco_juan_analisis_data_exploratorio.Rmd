@@ -62,3 +62,35 @@ original_df$calidad_navegacion_movil <- as.factor(original_df$calidad_navegacion
 original_df$navegacion_movil_positivo <- as.factor(original_df$navegacion_movil_positivo)
 original_df$navegacion_movil_negativo <- as.factor(original_df$navegacion_movil_negativo)
 ```
+
+#total encuestados y porcentajes
+
+```{r}
+
+  muestra <- 423
+
+  #Variable de exclusion 1: edad 18-25
+  muestra_edad <- 394
+  porcentaje_exclu1 <- ((muestra - muestra_edad)/muestra)*100 
+  porcentaje_exclu1
+
+  #Variable de exclusion 2: estudiando
+  muestra_carrera <- 354
+  porcentaje_exclu2 <- ((muestra_edad - muestra_carrera)/muestra_edad)*100
+  porcentaje_exclu2
+
+  #Variable de exclusion 3: residencia Municipios
+  muestra_mun <- 334
+  porcentaje_exclu3 <- ((muestra_carrera - muestra_mun)/muestra_carrera)*100
+  porcentaje_exclu3
+
+  #Variable de exclusion 4: diagnostico clinico
+  muestra_dx <- 261
+  porcentaje_exclu4 <- ((muestra_mun - muestra_dx)/muestra_mun)*100
+  porcentaje_exclu4
+
+```
+
+```{r}
+
+```
