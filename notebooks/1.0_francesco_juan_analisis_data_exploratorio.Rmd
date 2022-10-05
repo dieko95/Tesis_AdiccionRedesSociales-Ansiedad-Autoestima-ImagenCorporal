@@ -243,7 +243,102 @@ original_df%>%
    labs(x= "Tipos de dispositivos", y= "Frecuencia", title = "Dispositivos frecuentes", subtitle = "Uso de dispositivos para consumo Redes Sociales") + guides(fill = guide_legend(title = "Dispositivos"),colour = guide_legend(title = "Dispositivos"))
 ```
 
-#analisis descriptivo bivariante
+#analisis descriptivo bivariante fact 1 vs tipo de dispositivo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = tipo_dispositivo_rrss, y = fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+# aes(x= "Factor 1 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+```
+
+#analisis descriptivo bivariante fact 2 vs tipo de dispositivo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = tipo_dispositivo_rrss, y = fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+# aes(x= "Factor 2 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+```
+
+#analisis descriptivo bivariante fact 3 vs tipo de dispositivo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = tipo_dispositivo_rrss, y =fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+# aes(x= "Factor 3 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+```
+
+#analisis descriptivo bivariante fact 1 vs calidad de internet fijo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+  # aes(x= "Factor 1 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
+ 
+```
+
+#analisis descriptivo bivariante fact 2 vs calidad de internet fijo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+  # aes(x= "Factor 2 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
+```
+
+#analisis descriptivo bivariante fact 3 vs calidad de internet fijo
+
+```{r}
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue")) 
+  # aes(x= "Factor 3 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
+```
 
 ```{r}
 
