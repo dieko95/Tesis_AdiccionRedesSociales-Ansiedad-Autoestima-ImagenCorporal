@@ -122,12 +122,9 @@ vis_miss(original_df, sort_miss = TRUE)
   
 ```
 
-#outlyiers de factores
+#outlyiers de factores adiccion a las redes sociales
 
 ```{r}
-#OUTLIERS
-
-  #INSTRUMENTOS
   
     #ADICCION A LAS REDES SOCIALES
   
@@ -153,7 +150,13 @@ vis_miss(original_df, sort_miss = TRUE)
        labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
       geom_boxplot()
   
-    #AUTOESTIMA
+
+```
+
+#outlyiers de factores Autoestima
+
+```{r}
+#AUTOESTIMA
   
       #Auto fac 1
       original_df %>% 
@@ -166,9 +169,11 @@ vis_miss(original_df, sort_miss = TRUE)
       ggplot(aes(y = original_df$fac2_auto)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 2 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 2") +
       geom_boxplot()
-  
-    #BSQ
-  
+```
+
+#outlyiers de factores BSQ
+
+```{r}
       #BSQ fac 1
       original_df %>% 
       ggplot(aes(y = original_df$fac1_bsq)) +
@@ -256,7 +261,7 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Factor 1 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+# aes(x= "Tipo de Dispositivo", y= "Factor 1 Adiccion Redes Sociales")
 ```
 
 #analisis descriptivo bivariante fact 2 vs tipo de dispositivo
@@ -272,7 +277,7 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Factor 2 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+# aes(x= "Tipo de Dispositivo", y= "Factor 2 Adiccion Redes Sociales")
 ```
 
 #analisis descriptivo bivariante fact 3 vs tipo de dispositivo
@@ -288,7 +293,73 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Factor 3 Adiccion Redes Sociales", y= "Tipo de dispositivo")
+# aes(x= "Tipo de Dispositivo", y= "Factor 3 Adiccion Redes Sociales")
+```
+
+#analisis univariante ocupacion
+
+```{r}
+original_df%>%
+  ggplot(aes(trabajo_actual, fill = trabajo_actual)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Ocupacion", y= "Frecuencia", title = "Ocupacion", subtitle = "Ocupacion de participantes") + guides(fill = guide_legend(title = "Ocupacion"),colour = guide_legend(title = "Ocupacion"))
+```
+
+#analisis descriptivo bivariante fact 1 vs ocupacion
+
+```{r}
+original_df%>%
+  ggplot(aes(x = trabajo_actual, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+```
+
+#analisis descriptivo bivariante fact 2 vs ocupacion
+
+```{r}
+original_df%>%
+  ggplot(aes(x = trabajo_actual, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 2 Redes Sociales")
+```
+
+#analisis descriptivo bivariante fact 3 vs ocupacion
+
+```{r}
+original_df%>%
+  ggplot(aes(x = trabajo_actual, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 2 Redes Sociales")
+```
+
+#nivel educativo
+
+```{r}
+original_df%>%
+  ggplot(aes(educación, fill = educación)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Nivel Educativo", y= "Frecuencia", title = "Niveles educativos", subtitle = "Nivel Educativo") + guides(fill = guide_legend(title = "Frecuencia de Nivel Educativo"),colour = guide_legend(title = "Nivel Educativo"))
 ```
 
 #analisis descriptivo bivariante fact 1 vs calidad de internet fijo
@@ -304,7 +375,7 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Factor 1 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
+  # aes(x= "Calidad de Internet Fijo", y= "Factor 1 Adiccion Redes Sociales")
  
 ```
 
@@ -321,7 +392,7 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Factor 2 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
+  # aes(x= "Calidad de Internet Fijo", y= "Factor 2 Adiccion Redes Sociales")
 ```
 
 #analisis descriptivo bivariante fact 3 vs calidad de internet fijo
@@ -337,9 +408,5 @@ original_df%>%
                geom = "point",
                aes(color = "Median")) +
  scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Factor 3 Adiccion Redes Sociales", y= "Calidad de Internet Fijo")
-```
-
-```{r}
-
+  # aes(x= "Calidad de Internet Fijo", y= "Factor 3 Adiccion Redes Sociales")
 ```
