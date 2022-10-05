@@ -36,6 +36,17 @@ View(original_df)
 #recodificacion de datos
 
 ```{r}
+#Convertir respuestas erroneas a NA
+  
+ original_df[1, 15:27] <- NA 
+ original_df[84, 15:27] <- NA
+
+ #convertir valores NA a 0
+  
+  original_df[is.na(original_df)] <- "no valido"
+  
+  #convertir a factor
+  
 original_df$sexo <- as.factor(original_df$sexo)
 original_df$municipio <- as.factor(original_df$municipio)
 original_df$trabajo_actual <- as.factor(original_df$trabajo_actual)
@@ -61,6 +72,7 @@ original_df$acceso_celular_rrss <- as.factor(original_df$acceso_celular_rrss)
 original_df$calidad_navegacion_movil <- as.factor(original_df$calidad_navegacion_movil)
 original_df$navegacion_movil_positivo <- as.factor(original_df$navegacion_movil_positivo)
 original_df$navegacion_movil_negativo <- as.factor(original_df$navegacion_movil_negativo)
+
 ```
 
 #total encuestados y porcentajes
@@ -88,9 +100,123 @@ original_df$navegacion_movil_negativo <- as.factor(original_df$navegacion_movil_
   muestra_dx <- 261
   porcentaje_exclu4 <- ((muestra_mun - muestra_dx)/muestra_mun)*100
   porcentaje_exclu4
-
+  
+  #Muestra final
+  length(original_df$id)
+  
 ```
 
-```{r}
+#valores nulos
 
+```{r}
+#Valores nulos
+  
+  original_df %>%
+    is.na() %>%
+    sum()
+
+vis_miss(original_df, sort_miss = TRUE)
+  
+  View(original_df)
+  
+  
+```
+
+#outlyiers de factores
+
+```{r}
+#OUTLIERS
+
+  #INSTRUMENTOS
+  
+    #ADICCION A LAS REDES SOCIALES
+  
+      #ARS fac 1
+  
+      original_df %>% 
+        ggplot(aes(y = original_df$fac1_ars)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
+        geom_boxplot()
+  
+  
+      #ARS fac 2
+  
+      original_df %>% 
+        ggplot(aes(y = original_df$fac2_ars)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 2 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
+        geom_boxplot()
+  
+      #ARS fac 3 
+  
+      original_df %>% 
+      ggplot(aes(y = original_df$fac3_ars)) +
+       labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
+      geom_boxplot()
+  
+    #AUTOESTIMA
+  
+      #Auto fac 1
+      original_df %>% 
+      ggplot(aes(y = original_df$fac1_auto)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 1 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 1") +
+      geom_boxplot()
+      
+      #Auto fac 2
+      original_df %>% 
+      ggplot(aes(y = original_df$fac2_auto)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 2 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 2") +
+      geom_boxplot()
+  
+    #BSQ
+  
+      #BSQ fac 1
+      original_df %>% 
+      ggplot(aes(y = original_df$fac1_bsq)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 1 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 1") +
+      geom_boxplot()
+ 
+      #BSQ fac 2
+      original_df %>% 
+      ggplot(aes(y = original_df$fac2_bsq)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 2 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 2") +
+      geom_boxplot()
+      
+      #BSQ fac 3
+      original_df %>% 
+        ggplot(aes(y = original_df$fac3_bsq)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 3 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 3") +
+        geom_boxplot()
+```
+
+#analisis descriptivo data
+
+```{r}
+#Chi Cuadrado Municipio
+  
+chisq.test(table(original_df$municipio))
+
+  #Sexo
+
+original_df%>%
+  ggplot(aes(original_df$sexo, fill = sexo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+labs(x= "Sexos", y= "Frecuencia", title = "Sexo", subtitle = "Cantidad de personas por sexo") + guides(fill = guide_legend(title = "Sexos"),colour = guide_legend(title = "Sexos"))
+  
+  #Chi Cuadrado Sexo
+
+chisq.test(table(original_df$sexo))
+
+  #Edad
+
+original_df%>%
+  ggplot(aes(original_df$edad, fill = edad)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+  labs(x= "Edades", y= "Frecuencia", title = "Edades Encuestadas", subtitle = "Cantidad de personas por edad") + guides(fill = guide_legend(title = "Edades"),colour = guide_legend(title = "Edades"))
+
+  #Tipo de dispositivo
+
+original_df%>%
+  ggplot(aes(original_df$tipo_dispositivo_rrss, fill = tipo_dispositivo_rrss)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Tipos de dispositivos", y= "Frecuencia", title = "Dispositivos frecuentes", subtitle = "Uso de dispositivos para consumo Redes Sociales") + guides(fill = guide_legend(title = "Dispositivos"),colour = guide_legend(title = "Dispositivos"))
 ```
