@@ -248,22 +248,6 @@ original_df%>%
    labs(x= "Tipos de dispositivos", y= "Frecuencia", title = "Dispositivos frecuentes", subtitle = "Uso de dispositivos para consumo Redes Sociales") + guides(fill = guide_legend(title = "Dispositivos"),colour = guide_legend(title = "Dispositivos"))
 ```
 
-#analisis descriptivo bivariante fact 1 vs tipo de dispositivo
-
-```{r}
-original_df%>%
-  ggplot(aes(x = tipo_dispositivo_rrss, y = fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Tipo de Dispositivo", y= "Factor 1 Adiccion Redes Sociales")
-```
-
 #analisis descriptivo bivariante fact 2 vs tipo de dispositivo
 
 ```{r}
@@ -360,6 +344,136 @@ original_df%>%
   ggplot(aes(educación, fill = educación)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Nivel Educativo", y= "Frecuencia", title = "Niveles educativos", subtitle = "Nivel Educativo") + guides(fill = guide_legend(title = "Frecuencia de Nivel Educativo"),colour = guide_legend(title = "Nivel Educativo"))
+```
+
+#INTERNET FIJO
+
+#analisis univariante variable control internet fijo
+
+```{r}
+original_df%>%
+  ggplot(aes(internet_fijo, fill = internet_fijo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Internet fijo", y= "Frecuencia", title = "Internet fijo",subtitle = "Frecuencia de internet fijo") + guides(fill = guide_legend(title = "Frecuencia de internet fijo"),colour = guide_legend(title = "internet fijo"))
+```
+
+#analisis univariante calidad de conectividad
+
+```{r}
+original_df%>%
+  ggplot(aes(calidad_internet_fijo, fill = calidad_internet_fijo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Calidad de internet fijo", y= "Frecuencia", title = "Calidad del servicio",subtitle = "Internet fijo") + guides(fill = guide_legend(title = "Calidad de internet fijo"),colour = guide_legend(title = "Calidad de internet fijo"))
+```
+
+#analisis univariante variable control fallas de servicio
+
+```{r}
+original_df%>%
+  ggplot(aes(fallas_servicio, fill = fallas_servicio)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Fallas del servicio", y= "Frecuencia", title = "Fallo del servicio",subtitle = "Frecuencia de fallas del servicio") + guides(fill = guide_legend(title = "Frecuencia de fallas de servicio"),colour = guide_legend(title = "Fallas de servicio"))
+```
+
+#analisis univariante variable control percepcion positiva del servicio
+
+```{r}
+original_df%>%
+  ggplot(aes(internet_fijo_positivo, fill = internet_fijo_positivo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+```
+
+#analisis univariante variable control percepcion negativa del servicio
+
+```{r}
+original_df%>%
+  ggplot(aes(internet_fijo_negativo, fill = internet_fijo_negativo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Percepcion negativa", y= "Frecuencia", title = "Percepcion negativa",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
+```
+
+#analisis univariante reestablecimiento del servicio de internet
+
+```{r}
+original_df%>%
+  ggplot(aes(fallo_internet_reestablecimiento, fill = fallo_internet_reestablecimiento)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Reestablecimiento del servicio", y= "Frecuencia", title = "Reestablecimiento del servicio",subtitle = "Reestablecimiento del servicio fijo de internet") + guides(fill = guide_legend(title = "Reestablecimiento"),colour = guide_legend(title = "Reestablecimiento"))
+```
+
+#analisis univariante tipo de empresa
+
+```{r}
+original_df%>%
+  ggplot(aes(tipo_empresa_internet_fijo, fill = tipo_empresa_internet_fijo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Tipo de empresa", y= "Frecuencia", title = "Tipo de empresa",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Tipo de empresa"),colour = guide_legend(title = "Tipo de empresa"))
+```
+
+#analisis univariante cambio de proveedor
+
+```{r}
+original_df%>%
+  ggplot(aes(cambio_proveedor_reciente, fill = cambio_proveedor_reciente)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Cambio de proveedor reciente", y= "Frecuencia", title = "Cambio de proveedor reciente",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Cambio de proveedor"),colour = guide_legend(title = "Cambio de proveedor"))
+```
+
+#analisis descriptivo univariante medida secundaria
+
+```{r}
+original_df%>%
+  ggplot(aes(medida_secundaria_fallo_internet_fijo, fill = medida_secundaria_fallo_internet_fijo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Medida secundaria", y= "Frecuencia", title = "Medidas secundarias",subtitle = "Frente a falla del servicio fijo") + guides(fill = guide_legend(title = "Medidas secundarias"),colour = guide_legend(title = "Medidas secundarias"))
+```
+
+#analisis univariante pago de internet
+
+```{r}
+original_df%>%
+  ggplot(aes(pago_internet_dolares, fill = pago_internet_dolares)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Pago en divisas", y= "Frecuencia", title = "Pago en divisas",subtitle = "Pago de servicio fijo en divisas") + guides(fill = guide_legend(title = "Pago en divisas"),colour = guide_legend(title = "Pago en divisas"))
+```
+
+#INTERNET MOVIL
+
+#analisis descriptivo acceso rrss via movil
+
+```{r}
+original_df%>%
+  ggplot(aes(acceso_celular_rrss, fill = acceso_celular_rrss)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Acceso a redes sociales del movil", y= "Frecuencia", title = "Acceso a las redes sociales desde el movil",subtitle = "Frecuencia de acceso a rrss desde el movil") + guides(fill = guide_legend(title = "Acceso de rrss desde el movil"),colour = guide_legend(title = "Acceso de rrss desde el movil"))
+```
+
+#analisis univariante de calidad de conexion movil
+
+```{r}
+original_df%>%
+  ggplot(aes(calidad_navegacion_movil, fill = calidad_navegacion_movil)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Calidad del servicio movil", y= "Frecuencia", title = "Calidad del servicio movil",subtitle = "Frecuencia de calidad del servicio movil") + guides(fill = guide_legend(title = "Calidad servicio movil"),colour = guide_legend(title = "Calidad del servicio movil"))
+```
+
+#analisis univariante de percepcion positiva
+
+```{r}
+original_df%>%
+  ggplot(aes(navegacion_movil_positivo, fill = navegacion_movil_positivo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva del servicio movil",subtitle = "Razones por las cuales el servicio es positivo") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+```
+
+#analisis univariante de percepcion negativa
+
+```{r}
+original_df%>%
+  ggplot(aes(navegacion_movil_negativo, fill = navegacion_movil_negativo)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+   labs(x= "Percepcion negativo", y= "Frecuencia", title = "Percepcion negativa del servicio movil",subtitle = "Razones por las cuales el servicio es negativa") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
 ```
 
 #analisis descriptivo bivariante fact 1 vs calidad de internet fijo
