@@ -47,32 +47,7 @@ View(original_df)
   
   #convertir a factor
   
-original_df$sexo <- as.factor(original_df$sexo)
-original_df$municipio <- as.factor(original_df$municipio)
-original_df$trabajo_actual <- as.factor(original_df$trabajo_actual)
-original_df$educación <- as.factor(original_df$educación)
-original_df$tipo_universidad <- as.factor(original_df$tipo_universidad)
-original_df$tipo_dispositivo_rrss <- as.factor(original_df$tipo_dispositivo_rrss)
-original_df$top1_rrss <- as.factor(original_df$top1_rrss)
-original_df$top2_rrss <- as.factor(original_df$top2_rrss)
-original_df$top3_rrss <- as.factor(original_df$top3_rrss)
-original_df$top4_rrss <- as.factor(original_df$top4_rrss)
-original_df$top5_rrss <- as.factor(original_df$top5_rrss)
-original_df$internet_fijo <- as.factor(original_df$internet_fijo)
-original_df$calidad_internet_fijo <- as.factor(original_df$calidad_internet_fijo)
-original_df$fallas_servicio <- as.factor(original_df$fallas_servicio)
-original_df$internet_fijo_positivo <- as.factor(original_df$internet_fijo_positivo)
-original_df$internet_fijo_negativo <- as.factor(original_df$internet_fijo_negativo)
-original_df$fallo_internet_reestablecimiento <- as.factor(original_df$fallo_internet_reestablecimiento)
-original_df$tipo_empresa_internet_fijo <- as.factor(original_df$tipo_empresa_internet_fijo)
-original_df$cambio_proveedor_reciente <- as.factor(original_df$cambio_proveedor_reciente)
-original_df$medida_secundaria_fallo_internet_fijo <- as.factor(original_df$medida_secundaria_fallo_internet_fijo)
-original_df$pago_internet_dolares <- as.factor(original_df$pago_internet_dolares)
-original_df$acceso_celular_rrss <- as.factor(original_df$acceso_celular_rrss)
-original_df$calidad_navegacion_movil <- as.factor(original_df$calidad_navegacion_movil)
-original_df$navegacion_movil_positivo <- as.factor(original_df$navegacion_movil_positivo)
-original_df$navegacion_movil_negativo <- as.factor(original_df$navegacion_movil_negativo)
-
+original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
 ```
 
 #total encuestados y porcentajes
@@ -196,14 +171,26 @@ vis_miss(original_df, sort_miss = TRUE)
 #analisis descriptivo municipio
 
 ```{r}
+original_df %>% 
+  count(municipio) %>% 
+  mutate(pct = prop.table(n))
+```
+
+
+```{r}
 #municipio
 
-original_df%>%
-  ggplot(aes(original_df$municipio, fill = municipio)) +
-    geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+original_df %>% 
+  count(municipio) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=municipio, y= n, fill = municipio, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
     labs(x= "Municipios", y= "Frecuencia", title = "Muncipios Encuestados", subtitle = "Cantidad de personas por municipio") +
     guides(fill = guide_legend(title = "Municipios"),
-           colour = guide_legend(title = "Municipio"))
+           colour = guide_legend(title = "Municipio")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 #Chi Cuadrado Municipio
   
