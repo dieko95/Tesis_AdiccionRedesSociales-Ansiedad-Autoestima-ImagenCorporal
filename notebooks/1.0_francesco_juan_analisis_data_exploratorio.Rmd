@@ -176,7 +176,6 @@ original_df %>%
   mutate(pct = prop.table(n))
 ```
 
-
 ```{r}
 #municipio
 
@@ -203,10 +202,17 @@ chisq.test(table(original_df$municipio))
 ```{r}
 #Sexo
 
-original_df%>%
-  ggplot(aes(original_df$sexo, fill = sexo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-labs(x= "Sexos", y= "Frecuencia", title = "Sexo", subtitle = "Cantidad de personas por sexo") + guides(fill = guide_legend(title = "Sexos"),colour = guide_legend(title = "Sexos"))
+original_df %>% 
+  count(sexo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=sexo, y= n, fill = sexo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Sexo", y= "Frecuencia", title = "Sexo", subtitle = "Frecuencia de identificacion de sexo de los encuestados") +
+    guides(fill = guide_legend(title = "Sexo"),
+           colour = guide_legend(title = "Sexo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
   
   #Chi Cuadrado Sexo
 
@@ -218,10 +224,17 @@ chisq.test(table(original_df$sexo))
 ```{r}
 #Edad
 
-original_df%>%
-  ggplot(aes(original_df$edad, fill = edad)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-  labs(x= "Edades", y= "Frecuencia", title = "Edades Encuestadas", subtitle = "Cantidad de personas por edad") + guides(fill = guide_legend(title = "Edades"),colour = guide_legend(title = "Edades"))
+original_df %>% 
+  count(edad) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=edad, y= n, fill = edad, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Edad", y= "Frecuencia", title = "Edades de los encuestados", subtitle = "Frecuencia de edades de los encuestados") +
+    guides(fill = guide_legend(title = "Edades"),
+           colour = guide_legend(title = "Edad")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 ```
 
 #analisis descriptivo univariante tipo de dispositivo
@@ -229,10 +242,17 @@ original_df%>%
 ```{r}
 #Tipo de dispositivo
 
-original_df%>%
-  ggplot(aes(original_df$tipo_dispositivo_rrss, fill = tipo_dispositivo_rrss)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Tipos de dispositivos", y= "Frecuencia", title = "Dispositivos frecuentes", subtitle = "Uso de dispositivos para consumo Redes Sociales") + guides(fill = guide_legend(title = "Dispositivos"),colour = guide_legend(title = "Dispositivos"))
+original_df %>% 
+  count(tipo_dispositivo_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=tipo_dispositivo_rrss, y= n, fill = tipo_dispositivo_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Tipo de dispositivo para ingresar a RRSS", y= "Frecuencia", title = "Tipo de dispositivo", subtitle = "Dispositivos mas frecuentes para ingresar a Redes Sociales") +
+    guides(fill = guide_legend(title = "Tipos de dispositivos"),
+           colour = guide_legend(title = "Tipos de dispositivos")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 ```
 
 #analisis descriptivo bivariante fact 2 vs tipo de dispositivo
@@ -270,10 +290,17 @@ original_df%>%
 #analisis univariante ocupacion
 
 ```{r}
-original_df%>%
-  ggplot(aes(trabajo_actual, fill = trabajo_actual)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Ocupacion", y= "Frecuencia", title = "Ocupacion", subtitle = "Ocupacion de participantes") + guides(fill = guide_legend(title = "Ocupacion"),colour = guide_legend(title = "Ocupacion"))
+original_df %>% 
+  count(trabajo_actual) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=trabajo_actual, y= n, fill = trabajo_actual, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Ocupacion", y= "Frecuencia", title = "Ocupacion", subtitle = "Frecuencia de ocupacion de los encuestados") +
+    guides(fill = guide_legend(title = "Ocupacion"),
+           colour = guide_legend(title = "Ocupacion")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 ```
 
 #analisis descriptivo bivariante fact 1 vs ocupacion
@@ -327,10 +354,17 @@ original_df%>%
 #nivel educativo
 
 ```{r}
-original_df%>%
-  ggplot(aes(educación, fill = educación)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Nivel Educativo", y= "Frecuencia", title = "Niveles educativos", subtitle = "Nivel Educativo") + guides(fill = guide_legend(title = "Frecuencia de Nivel Educativo"),colour = guide_legend(title = "Nivel Educativo"))
+original_df %>% 
+  count(educación) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=educación, y= n, fill = educación, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Nivel Educativo", y= "Frecuencia", title = "Nivel Educativo", subtitle = "Frecuencia de nivel educativo") +
+    guides(fill = guide_legend(title = "Nivel Educativo"),
+           colour = guide_legend(title = "Nivel Educativo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 ```
 
 #INTERNET FIJO
@@ -338,11 +372,17 @@ original_df%>%
 #analisis univariante y bivariante variable control internet fijo
 
 ```{r}
-original_df%>%
-  ggplot(aes(internet_fijo, fill = internet_fijo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Internet fijo", y= "Frecuencia", title = "Internet fijo",subtitle = "Frecuencia de internet fijo") + guides(fill = guide_legend(title = "Frecuencia de internet fijo"),colour = guide_legend(title = "internet fijo"))
-
+original_df %>% 
+  count(internet_fijo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=internet_fijo, y= n, fill = internet_fijo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Internet Fijo", y= "Frecuencia", title = "Internet Fijo", subtitle = "Frecuencia de acceso a internet fijo") +
+    guides(fill = guide_legend(title = "Internet fijo"),
+           colour = guide_legend(title = "Internet fijo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 original_df%>%
   ggplot(aes(x = internet_fijo, y =  fac1_ars)) +
   geom_violin() + 
@@ -383,10 +423,17 @@ original_df%>%
 #analisis univariante y bivariante calidad de conectividad
 
 ```{r}
-original_df%>%
-  ggplot(aes(calidad_internet_fijo, fill = calidad_internet_fijo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Calidad de internet fijo", y= "Frecuencia", title = "Calidad del servicio",subtitle = "Internet fijo") + guides(fill = guide_legend(title = "Calidad de internet fijo"),colour = guide_legend(title = "Calidad de internet fijo"))
+original_df %>% 
+  count(calidad_internet_fijo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=calidad_internet_fijo, y= n, fill = calidad_internet_fijo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Calidad de internet fijo", y= "Frecuencia", title = "Calidad de internet", subtitle = "Calidad de servicio de internet fijo de los encuestados") +
+    guides(fill = guide_legend(title = "Calidad de internet"),
+           colour = guide_legend(title = "Calidad de internet")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = calidad_internet_fijo, y =  fac1_ars)) +
@@ -428,10 +475,17 @@ original_df%>%
 #analisis univariante y bivariante variable control fallas de servicio
 
 ```{r}
-original_df%>%
-  ggplot(aes(fallas_servicio, fill = fallas_servicio)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Fallas del servicio", y= "Frecuencia", title = "Fallo del servicio",subtitle = "Frecuencia de fallas del servicio") + guides(fill = guide_legend(title = "Frecuencia de fallas de servicio"),colour = guide_legend(title = "Fallas de servicio"))
+original_df %>% 
+  count(fallas_servicio) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=fallas_servicio, y= n, fill = fallas_servicio, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Fallas del servicio fijo", y= "Frecuencia", title = "Fallas del servicio fijo", subtitle = "Frecuencia de fallas presentadas sobre el servicio fijo de internet") +
+    guides(fill = guide_legend(title = "Fallas del servicio fijo"),
+           colour = guide_legend(title = "Fallas del servicio fijo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = fallas_servicio, y =  fac1_ars)) +
@@ -475,10 +529,17 @@ original_df%>%
 #analisis univariante y bivariante variable control percepcion positiva del servicio
 
 ```{r}
-original_df%>%
-  ggplot(aes(internet_fijo_positivo, fill = internet_fijo_positivo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+original_df %>% 
+  count(internet_fijo_positivo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=internet_fijo_positivo, y= n, fill = internet_fijo_positivo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Percepcion positiva del servicio", y= "Frecuencia", title = "Percepcion positiva del servicio", subtitle = "Frecuencia de la percepcion del servicio fijo") +
+    guides(fill = guide_legend(title = "Percepcion positiva del servicio"),
+           colour = guide_legend(title = "Percepcion positiva del servicio")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = internet_fijo_positivo, y =  fac1_ars)) +
@@ -521,10 +582,17 @@ original_df%>%
 #analisis univariante y bivariante variable control percepcion negativa del servicio
 
 ```{r}
-original_df%>%
-  ggplot(aes(internet_fijo_negativo, fill = internet_fijo_negativo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Percepcion negativa", y= "Frecuencia", title = "Percepcion negativa",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
+original_df %>% 
+  count(internet_fijo_negativo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=internet_fijo_negativo, y= n, fill = internet_fijo_negativo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Percepcion negativa del servicio", y= "Frecuencia", title = "Percepcion negativa del servicio", subtitle = "Frecuencia de la percepcion del negativa fijo") +
+    guides(fill = guide_legend(title = "Percepcion negativa del servicio"),
+           colour = guide_legend(title = "Percepcion negativa del servicio")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = internet_fijo_negativo, y =  fac1_ars)) +
@@ -566,10 +634,7 @@ original_df%>%
 #analisis univariante y bivariante reestablecimiento del servicio de internet
 
 ```{r}
-original_df%>%
-  ggplot(aes(fallo_internet_reestablecimiento, fill = fallo_internet_reestablecimiento)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Reestablecimiento del servicio", y= "Frecuencia", title = "Reestablecimiento del servicio",subtitle = "Reestablecimiento del servicio fijo de internet") + guides(fill = guide_legend(title = "Reestablecimiento"),colour = guide_legend(title = "Reestablecimiento"))
+
 
 original_df%>%
   ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac1_ars)) +
@@ -611,10 +676,17 @@ original_df%>%
 #analisis univariante y bivariante tipo de empresa
 
 ```{r}
-original_df%>%
-  ggplot(aes(tipo_empresa_internet_fijo, fill = tipo_empresa_internet_fijo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Tipo de empresa", y= "Frecuencia", title = "Tipo de empresa",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Tipo de empresa"),colour = guide_legend(title = "Tipo de empresa"))
+original_df %>% 
+  count(tipo_empresa_internet_fijo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=tipo_empresa_internet_fijo, y= n, fill = tipo_empresa_internet_fijo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Tipo de empresa de servicio fijo", y= "Frecuencia", title = "Tipo de empresa de servicio fijo", subtitle = "Frecuencia empresas de servicio de internet fijo") +
+    guides(fill = guide_legend(title = "Tipo de empresa servicio fijo"),
+           colour = guide_legend(title = "Tipo de empresa servicio fijo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac1_ars)) +
@@ -656,10 +728,18 @@ original_df%>%
 #analisis univariante y bivariante cambio de proveedor
 
 ```{r}
-original_df%>%
-  ggplot(aes(cambio_proveedor_reciente, fill = cambio_proveedor_reciente)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Cambio de proveedor reciente", y= "Frecuencia", title = "Cambio de proveedor reciente",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Cambio de proveedor"),colour = guide_legend(title = "Cambio de proveedor"))
+original_df %>% 
+  count(cambio_proveedor_reciente) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=cambio_proveedor_reciente, y= n, fill = cambio_proveedor_reciente, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Cambio reciente de proveedor", y= "Frecuencia", title = "Cambio de proveedor", subtitle = "Frecuencia de cambio de proveedor de servicio fijo de internet") +
+    guides(fill = guide_legend(title = "Cambio de proveedor"),
+           colour = guide_legend(title = "Cambio de proveedor")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
 
 original_df%>%
   ggplot(aes(x = cambio_proveedor_reciente, y =  fac1_ars)) +
@@ -701,10 +781,18 @@ original_df%>%
 #analisis descriptivo univariante y bivariante medida secundaria
 
 ```{r}
-original_df%>%
-  ggplot(aes(medida_secundaria_fallo_internet_fijo, fill = medida_secundaria_fallo_internet_fijo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Medida secundaria", y= "Frecuencia", title = "Medidas secundarias",subtitle = "Frente a falla del servicio fijo") + guides(fill = guide_legend(title = "Medidas secundarias"),colour = guide_legend(title = "Medidas secundarias"))
+original_df %>% 
+  count(medida_secundaria_fallo_internet_fijo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=medida_secundaria_fallo_internet_fijo, y= n, fill = medida_secundaria_fallo_internet_fijo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Medida alterna frente frente a fallas", y= "Frecuencia", title = "Medidada alterna a fallas del servicio fijo", subtitle = "Medida secundaria frente a fallas presentadas por el servicio dijo de internet") +
+    guides(fill = guide_legend(title = "Medida alterna"),
+           colour = guide_legend(title = "Medida alterna")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
 
 original_df%>%
   ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac1_ars)) +
@@ -746,10 +834,18 @@ original_df%>%
 #analisis univariante y bivariante pago de internet
 
 ```{r}
-original_df%>%
-  ggplot(aes(pago_internet_dolares, fill = pago_internet_dolares)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Pago en divisas", y= "Frecuencia", title = "Pago en divisas",subtitle = "Pago de servicio fijo en divisas") + guides(fill = guide_legend(title = "Pago en divisas"),colour = guide_legend(title = "Pago en divisas"))
+original_df %>% 
+  count(pago_internet_dolares) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=pago_internet_dolares, y= n, fill = pago_internet_dolares, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Pago en divisas", y= "Frecuencia", title = "Pago de servicio fijo en divisas", subtitle = "Frecuencia de pago en divisas de servicios de internet fijo") +
+    guides(fill = guide_legend(title = "Pago en divisas"),
+           colour = guide_legend(title = "Pago en divisas")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
 
 original_df%>%
   ggplot(aes(x = pago_internet_dolares, y =  fac1_ars)) +
@@ -793,10 +889,17 @@ original_df%>%
 #analisis descriptivo acceso rrss via movil
 
 ```{r}
-original_df%>%
-  ggplot(aes(acceso_celular_rrss, fill = acceso_celular_rrss)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Acceso a redes sociales del movil", y= "Frecuencia", title = "Acceso a las redes sociales desde el movil",subtitle = "Frecuencia de acceso a rrss desde el movil") + guides(fill = guide_legend(title = "Acceso de rrss desde el movil"),colour = guide_legend(title = "Acceso de rrss desde el movil"))
+original_df %>% 
+  count(acceso_celular_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=acceso_celular_rrss, y= n, fill = acceso_celular_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Acceso a redes sociales via movil", y= "Frecuencia", title = "Acceso a redes sociales via movil", subtitle = "Frecuencia de acceso a redes sociales via movil") +
+    guides(fill = guide_legend(title = "Acceso a rrss via movil"),
+           colour = guide_legend(title = "Acceso a rrss via movil")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = acceso_celular_rrss, y =  fac1_ars)) +
@@ -838,10 +941,17 @@ original_df%>%
 #analisis univariante de calidad de conexion movil
 
 ```{r}
-original_df%>%
-  ggplot(aes(calidad_navegacion_movil, fill = calidad_navegacion_movil)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Calidad del servicio movil", y= "Frecuencia", title = "Calidad del servicio movil",subtitle = "Frecuencia de calidad del servicio movil") + guides(fill = guide_legend(title = "Calidad servicio movil"),colour = guide_legend(title = "Calidad del servicio movil"))
+original_df %>% 
+  count(calidad_navegacion_movil) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=calidad_navegacion_movil, y= n, fill = calidad_navegacion_movil, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Calidad de navegacion movil", y= "Frecuencia", title = "Calidad de navegacion movil", subtitle = "Frecuencia de calidad de navegacion movil") +
+    guides(fill = guide_legend(title = "Calidad de navegacion movil"),
+           colour = guide_legend(title = "Calidad de navegacion movil")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = calidad_navegacion_movil, y =  fac1_ars)) +
@@ -883,10 +993,17 @@ original_df%>%
 #analisis univariante de percepcion positiva
 
 ```{r}
-original_df%>%
-  ggplot(aes(navegacion_movil_positivo, fill = navegacion_movil_positivo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva del servicio movil",subtitle = "Razones por las cuales el servicio es positivo") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+original_df %>% 
+  count(navegacion_movil_positivo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=navegacion_movil_positivo, y= n, fill = navegacion_movil_positivo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Percepcion positiva de la navegacion movil", y= "Frecuencia", title = "Percepcion positiva de la navegacion movil", subtitle = "Frecuencia de la percepcion positiva de la navegacion movil") +
+    guides(fill = guide_legend(title = "Percepcion positiva de la navegacion movil"),
+           colour = guide_legend(title = "Percepcion positiva de la navegacion movil")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = navegacion_movil_positivo, y =  fac1_ars)) +
@@ -928,10 +1045,17 @@ original_df%>%
 #analisis univariante de percepcion negativa
 
 ```{r}
-original_df%>%
-  ggplot(aes(navegacion_movil_negativo, fill = navegacion_movil_negativo)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-   labs(x= "Percepcion negativo", y= "Frecuencia", title = "Percepcion negativa del servicio movil",subtitle = "Razones por las cuales el servicio es negativa") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
+original_df %>% 
+  count(navegacion_movil_negativo) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=navegacion_movil_negativo, y= n, fill = navegacion_movil_negativo, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Percepcion negativa de la navegacion movil", y= "Frecuencia", title = "Percepcion negativa de la navegacion movil", subtitle = "Frecuencia de la percepcion negativa de la navegacion movil") +
+    guides(fill = guide_legend(title = "Percepcion negativa de la navegacion movil"),
+           colour = guide_legend(title = "Percepcion negativa de la navegacion movil")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
 original_df%>%
   ggplot(aes(x = navegacion_movil_negativo, y =  fac1_ars)) +
