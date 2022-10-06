@@ -348,94 +348,457 @@ original_df%>%
 
 #INTERNET FIJO
 
-#analisis univariante variable control internet fijo
+#analisis univariante y bivariante variable control internet fijo
 
 ```{r}
 original_df%>%
   ggplot(aes(internet_fijo, fill = internet_fijo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Internet fijo", y= "Frecuencia", title = "Internet fijo",subtitle = "Frecuencia de internet fijo") + guides(fill = guide_legend(title = "Frecuencia de internet fijo"),colour = guide_legend(title = "internet fijo"))
+
+original_df%>%
+  ggplot(aes(x = internet_fijo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante calidad de conectividad
+#analisis univariante y bivariante calidad de conectividad
 
 ```{r}
 original_df%>%
   ggplot(aes(calidad_internet_fijo, fill = calidad_internet_fijo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Calidad de internet fijo", y= "Frecuencia", title = "Calidad del servicio",subtitle = "Internet fijo") + guides(fill = guide_legend(title = "Calidad de internet fijo"),colour = guide_legend(title = "Calidad de internet fijo"))
+
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = calidad_internet_fijo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante variable control fallas de servicio
+#analisis univariante y bivariante variable control fallas de servicio
 
 ```{r}
 original_df%>%
   ggplot(aes(fallas_servicio, fill = fallas_servicio)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Fallas del servicio", y= "Frecuencia", title = "Fallo del servicio",subtitle = "Frecuencia de fallas del servicio") + guides(fill = guide_legend(title = "Frecuencia de fallas de servicio"),colour = guide_legend(title = "Fallas de servicio"))
+
+original_df%>%
+  ggplot(aes(x = fallas_servicio, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = fallas_servicio, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = fallas_servicio, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+
 ```
 
-#analisis univariante variable control percepcion positiva del servicio
+#analisis univariante y bivariante variable control percepcion positiva del servicio
 
 ```{r}
 original_df%>%
   ggplot(aes(internet_fijo_positivo, fill = internet_fijo_positivo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_positivo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_positivo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_positivo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
 ```
 
-#analisis univariante variable control percepcion negativa del servicio
+#analisis univariante y bivariante variable control percepcion negativa del servicio
 
 ```{r}
 original_df%>%
   ggplot(aes(internet_fijo_negativo, fill = internet_fijo_negativo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Percepcion negativa", y= "Frecuencia", title = "Percepcion negativa",subtitle = "Servicio fijo de internet") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_negativo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_negativo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = internet_fijo_negativo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante reestablecimiento del servicio de internet
+#analisis univariante y bivariante reestablecimiento del servicio de internet
 
 ```{r}
 original_df%>%
   ggplot(aes(fallo_internet_reestablecimiento, fill = fallo_internet_reestablecimiento)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Reestablecimiento del servicio", y= "Frecuencia", title = "Reestablecimiento del servicio",subtitle = "Reestablecimiento del servicio fijo de internet") + guides(fill = guide_legend(title = "Reestablecimiento"),colour = guide_legend(title = "Reestablecimiento"))
+
+original_df%>%
+  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante tipo de empresa
+#analisis univariante y bivariante tipo de empresa
 
 ```{r}
 original_df%>%
   ggplot(aes(tipo_empresa_internet_fijo, fill = tipo_empresa_internet_fijo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Tipo de empresa", y= "Frecuencia", title = "Tipo de empresa",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Tipo de empresa"),colour = guide_legend(title = "Tipo de empresa"))
+
+original_df%>%
+  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante cambio de proveedor
+#analisis univariante y bivariante cambio de proveedor
 
 ```{r}
 original_df%>%
   ggplot(aes(cambio_proveedor_reciente, fill = cambio_proveedor_reciente)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Cambio de proveedor reciente", y= "Frecuencia", title = "Cambio de proveedor reciente",subtitle = "Servicio de internet fijo") + guides(fill = guide_legend(title = "Cambio de proveedor"),colour = guide_legend(title = "Cambio de proveedor"))
+
+original_df%>%
+  ggplot(aes(x = cambio_proveedor_reciente, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = cambio_proveedor_reciente, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = cambio_proveedor_reciente, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis descriptivo univariante medida secundaria
+#analisis descriptivo univariante y bivariante medida secundaria
 
 ```{r}
 original_df%>%
   ggplot(aes(medida_secundaria_fallo_internet_fijo, fill = medida_secundaria_fallo_internet_fijo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Medida secundaria", y= "Frecuencia", title = "Medidas secundarias",subtitle = "Frente a falla del servicio fijo") + guides(fill = guide_legend(title = "Medidas secundarias"),colour = guide_legend(title = "Medidas secundarias"))
+
+original_df%>%
+  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
-#analisis univariante pago de internet
+#analisis univariante y bivariante pago de internet
 
 ```{r}
 original_df%>%
   ggplot(aes(pago_internet_dolares, fill = pago_internet_dolares)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Pago en divisas", y= "Frecuencia", title = "Pago en divisas",subtitle = "Pago de servicio fijo en divisas") + guides(fill = guide_legend(title = "Pago en divisas"),colour = guide_legend(title = "Pago en divisas"))
+
+original_df%>%
+  ggplot(aes(x = pago_internet_dolares, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = pago_internet_dolares, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = pago_internet_dolares, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
 #INTERNET MOVIL
@@ -447,6 +810,42 @@ original_df%>%
   ggplot(aes(acceso_celular_rrss, fill = acceso_celular_rrss)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Acceso a redes sociales del movil", y= "Frecuencia", title = "Acceso a las redes sociales desde el movil",subtitle = "Frecuencia de acceso a rrss desde el movil") + guides(fill = guide_legend(title = "Acceso de rrss desde el movil"),colour = guide_legend(title = "Acceso de rrss desde el movil"))
+
+original_df%>%
+  ggplot(aes(x = acceso_celular_rrss, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = acceso_celular_rrss, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = acceso_celular_rrss, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
 #analisis univariante de calidad de conexion movil
@@ -456,6 +855,42 @@ original_df%>%
   ggplot(aes(calidad_navegacion_movil, fill = calidad_navegacion_movil)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Calidad del servicio movil", y= "Frecuencia", title = "Calidad del servicio movil",subtitle = "Frecuencia de calidad del servicio movil") + guides(fill = guide_legend(title = "Calidad servicio movil"),colour = guide_legend(title = "Calidad del servicio movil"))
+
+original_df%>%
+  ggplot(aes(x = calidad_navegacion_movil, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = calidad_navegacion_movil, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = calidad_navegacion_movil, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
 #analisis univariante de percepcion positiva
@@ -465,6 +900,42 @@ original_df%>%
   ggplot(aes(navegacion_movil_positivo, fill = navegacion_movil_positivo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Percepcion positiva", y= "Frecuencia", title = "Percepcion positiva del servicio movil",subtitle = "Razones por las cuales el servicio es positivo") + guides(fill = guide_legend(title = "Percepcion positiva"),colour = guide_legend(title = "Percepcion positiva"))
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_positivo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_positivo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_positivo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
 #analisis univariante de percepcion negativa
@@ -474,6 +945,42 @@ original_df%>%
   ggplot(aes(navegacion_movil_negativo, fill = navegacion_movil_negativo)) +
   geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
    labs(x= "Percepcion negativo", y= "Frecuencia", title = "Percepcion negativa del servicio movil",subtitle = "Razones por las cuales el servicio es negativa") + guides(fill = guide_legend(title = "Percepcion negativa"),colour = guide_legend(title = "Percepcion negativa"))
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_negativo, y =  fac1_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_negativo, y =  fac2_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+
+original_df%>%
+  ggplot(aes(x = navegacion_movil_negativo, y =  fac3_ars)) +
+  geom_violin() + 
+  stat_summary(fun = "mean",
+               geom = "point",
+               aes(color = "Mean")) +
+  stat_summary(fun = "median",
+               geom = "point",
+               aes(color = "Median")) +
+ scale_colour_manual(values = c("red", "blue"))  
+  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 ```
 
 #analisis descriptivo bivariante fact 1 vs calidad de internet fijo
