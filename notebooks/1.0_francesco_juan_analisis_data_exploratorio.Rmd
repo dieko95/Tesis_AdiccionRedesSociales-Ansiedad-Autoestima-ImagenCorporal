@@ -24,7 +24,9 @@ library(ggiraphExtra)
 library(rcompanion)
 library(naniar)
 library(showtext)
-
+library(ggstatsplot)
+library(DescTools)
+library(car)
 #Leer data
 original_df <- read_delim("../data/raw/Data para R.csv", 
                           ";", escape_double = FALSE, locale = locale(decimal_mark = ","), 
@@ -41,10 +43,6 @@ View(original_df)
  original_df[1, 15:27] <- NA 
  original_df[84, 15:27] <- NA
 
- #convertir valores NA a 0
-  
-  original_df[is.na(original_df)] <- "no valido"
-  
   #convertir a factor
   
 original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
@@ -85,19 +83,12 @@ original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
 
 ```{r}
 #Valores nulos
-  
-  original_df %>%
-    is.na() %>%
-    sum()
 
 vis_miss(original_df, sort_miss = TRUE)
   
-  View(original_df)
-  
-  
 ```
 
-#outlyiers de factores adiccion a las redes sociales
+#outliers de factores adiccion a las redes sociales
 
 ```{r}
   
@@ -128,7 +119,7 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ```
 
-#outlyiers de factores Autoestima
+#outliers de factores Autoestima
 
 ```{r}
 #AUTOESTIMA
@@ -146,7 +137,7 @@ vis_miss(original_df, sort_miss = TRUE)
       geom_boxplot()
 ```
 
-#outlyiers de factores BSQ
+#outliers de factores BSQ
 
 ```{r}
       #BSQ fac 1
@@ -191,10 +182,6 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-#Chi Cuadrado Municipio
-  
-chisq.test(table(original_df$municipio))
-
 ```
 
 #analisis descriptivo univariante sexo
@@ -213,10 +200,7 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
-  
-  #Chi Cuadrado Sexo
 
-chisq.test(table(original_df$sexo))
 ```
 
 #analisis descriptivo univariante edad
@@ -306,17 +290,20 @@ original_df %>%
 #analisis descriptivo bivariante fact 1 vs ocupacion
 
 ```{r}
-original_df%>%
-  ggplot(aes(x = trabajo_actual, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+leveneTest(original_df$fac1_ars, original_df$trabajo_actual)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$fac1_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = trabajo_actual,
+  y     = fac1_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor 1 ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis descriptivo bivariante fact 2 vs ocupacion
