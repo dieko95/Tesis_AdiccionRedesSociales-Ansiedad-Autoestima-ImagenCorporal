@@ -24,9 +24,9 @@ library(ggiraphExtra)
 library(rcompanion)
 library(naniar)
 library(showtext)
-library(ggstatsplot)
 library(DescTools)
 library(car)
+library(ggstatsplot)
 #Leer data
 original_df <- read_delim("../data/raw/Data para R.csv", 
                           ";", escape_double = FALSE, locale = locale(decimal_mark = ","), 
@@ -46,6 +46,9 @@ View(original_df)
   #convertir a factor
   
 original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
+
+  #Sumar Factores de ARS y creacion de nueva col
+mutate(original_df, factor_total_ars = original_df$fac1_ars + original_df$fac2_ars + original_df$fac3_ars)
 ```
 
 #total encuestados y porcentajes
