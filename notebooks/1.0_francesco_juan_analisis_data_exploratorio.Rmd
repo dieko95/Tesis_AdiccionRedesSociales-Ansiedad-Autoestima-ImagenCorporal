@@ -8,7 +8,7 @@ date: '2022-10-04'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#read Data
+#Read Data
 
 ```{r}
 library(readr)
@@ -35,7 +35,7 @@ original_df <- read_delim("../data/raw/Data para R.csv",
 View(original_df)
 ```
 
-#recodificacion de datos
+#Recodificación de datos
 
 ```{r}
 #Convertir respuestas erroneas a NA
@@ -48,10 +48,11 @@ View(original_df)
 original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
 
   #Sumar Factores de ARS y creacion de nueva col
-mutate(original_df, factor_total_ars = original_df$fac1_ars + original_df$fac2_ars + original_df$fac3_ars)
+original_df <- mutate(original_df, factor_total_ars = original_df$fac1_ars + original_df$fac2_ars + original_df$fac3_ars)
+
 ```
 
-#total encuestados y porcentajes
+#Total Encuestados y Porcentajes
 
 ```{r}
 
@@ -82,7 +83,7 @@ mutate(original_df, factor_total_ars = original_df$fac1_ars + original_df$fac2_a
   
 ```
 
-#valores nulos
+#Valores nulos
 
 ```{r}
 #Valores nulos
@@ -91,38 +92,23 @@ vis_miss(original_df, sort_miss = TRUE)
   
 ```
 
-#outliers de factores adiccion a las redes sociales
+#Outliers factores adicción a las redes sociales
 
 ```{r}
   
     #ADICCION A LAS REDES SOCIALES
   
-      #ARS fac 1
+      #ARS fac total
   
       original_df %>% 
-        ggplot(aes(y = original_df$fac1_ars)) +
+        ggplot(aes(y =factor_total_ars)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
         geom_boxplot()
-  
-  
-      #ARS fac 2
-  
-      original_df %>% 
-        ggplot(aes(y = original_df$fac2_ars)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 2 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
-        geom_boxplot()
-  
-      #ARS fac 3 
-  
-      original_df %>% 
-      ggplot(aes(y = original_df$fac3_ars)) +
-       labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
-      geom_boxplot()
   
 
 ```
 
-#outliers de factores Autoestima
+#Outliers de factores Autoestima
 
 ```{r}
 #AUTOESTIMA
@@ -140,7 +126,7 @@ vis_miss(original_df, sort_miss = TRUE)
       geom_boxplot()
 ```
 
-#outliers de factores BSQ
+#Outliers de factores BSQ
 
 ```{r}
       #BSQ fac 1
@@ -162,7 +148,7 @@ vis_miss(original_df, sort_miss = TRUE)
         geom_boxplot()
 ```
 
-#analisis descriptivo municipio
+#Análisis descriptivo municipio
 
 ```{r}
 original_df %>% 
@@ -242,36 +228,23 @@ original_df %>%
               size = 3)
 ```
 
-#analisis descriptivo bivariante fact 2 vs tipo de dispositivo
+#analisis descriptivo bivariante Factor total ARS vs tipo de dispositivo
 
 ```{r}
-original_df%>%
-  ggplot(aes(x = tipo_dispositivo_rrss, y = fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Tipo de Dispositivo", y= "Factor 2 Adiccion Redes Sociales")
-```
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$tipo_dispositivo_rrss)
 
-#analisis descriptivo bivariante fact 3 vs tipo de dispositivo
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-```{r}
-original_df%>%
-  ggplot(aes(x = tipo_dispositivo_rrss, y =fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-# aes(x= "Tipo de Dispositivo", y= "Factor 3 Adiccion Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_dispositivo_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante ocupacion
@@ -290,55 +263,23 @@ original_df %>%
               size = 3)
 ```
 
-#analisis descriptivo bivariante fact 1 vs ocupacion
+#Análisis descriptivo bivariante Factor total ARS vs ocupacion
 
 ```{r}
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-leveneTest(original_df$fac1_ars, original_df$trabajo_actual)
+LeveneTest(original_df$factor_total_ars, original_df$trabajo_actual)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$fac1_ars)
+shapiro.test(original_df$factor_total_ars)
 
 ggbetweenstats(
   data  = original_df,
   x     = trabajo_actual,
-  y     = fac1_ars,
+  y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor 1 ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
 )
-```
-
-#analisis descriptivo bivariante fact 2 vs ocupacion
-
-```{r}
-original_df%>%
-  ggplot(aes(x = trabajo_actual, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 2 Redes Sociales")
-```
-
-#analisis descriptivo bivariante fact 3 vs ocupacion
-
-```{r}
-original_df%>%
-  ggplot(aes(x = trabajo_actual, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 2 Redes Sociales")
 ```
 
 #nivel educativo
@@ -359,7 +300,7 @@ original_df %>%
 
 #INTERNET FIJO
 
-#analisis univariante y bivariante variable control internet fijo
+#analisis univariante y bivariante Factor total ARS vs internet fijo
 
 ```{r}
 original_df %>% 
@@ -373,41 +314,21 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
-original_df%>%
-  ggplot(aes(x = internet_fijo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
 
-original_df%>%
-  ggplot(aes(x = internet_fijo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$internet_fijo)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante y bivariante calidad de conectividad
@@ -425,44 +346,23 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$calidad_internet_fijo)
 
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_internet_fijo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante variable control fallas de servicio
+#analisis univariante y bivariante Factor total ARS vs fallas de servicio
 
 ```{r}
 original_df %>% 
@@ -477,46 +377,23 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = fallas_servicio, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$fallas_servicio)
 
-original_df%>%
-  ggplot(aes(x = fallas_servicio, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = fallas_servicio, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
-
-
+ggbetweenstats(
+  data  = original_df,
+  x     = fallas_servicio,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante variable control percepcion positiva del servicio
+#analisis univariante y bivariante Factor total ARS vs percepcion positiva del servicio
 
 ```{r}
 original_df %>% 
@@ -531,45 +408,23 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_positivo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_positivo)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_positivo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_positivo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
-
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_positivo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante variable control percepcion negativa del servicio
+#analisis univariante y bivariante Factor Total vs percepcion negativa del servicio
 
 ```{r}
 original_df %>% 
@@ -584,86 +439,54 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_negativo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_negativo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = internet_fijo_negativo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante reestablecimiento del servicio de internet
+#analisis univariante y bivariante Factor total ARS vs reestablecimiento del servicio de internet
 
 ```{r}
+original_df %>% 
+  count(fallo_internet_reestablecimiento) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=fallo_internet_reestablecimiento, y= n, fill = fallo_internet_reestablecimiento, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Reestablecimiento del servicio", y= "Frecuencia", title = "Reestablecimiento del servicio fijo", subtitle = "Frecuencia de reestablecimiento del servicio fijo de internet") +
+    guides(fill = guide_legend(title = "Reestablecimiento de servicio"),
+           colour = guide_legend(title = "Reestablecimiento de servicio")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
 
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$fallo_internet_reestablecimiento)
 
-original_df%>%
-  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
-
-original_df%>%
-  ggplot(aes(x = fallo_internet_reestablecimiento, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = fallo_internet_reestablecimiento,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante tipo de empresa
+#analisis univariante y bivariante Factor total ARS vs tipo de empresa
 
 ```{r}
 original_df %>% 
@@ -678,44 +501,23 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$tipo_empresa_internet_fijo)
 
-original_df%>%
-  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = tipo_empresa_internet_fijo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_empresa_internet_fijo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
-#analisis univariante y bivariante cambio de proveedor
+#analisis univariante y bivariante Factor total ARS vs cambio de proveedor
 
 ```{r}
 original_df %>% 
@@ -731,41 +533,20 @@ original_df %>%
               size = 3)
 
 
-original_df%>%
-  ggplot(aes(x = cambio_proveedor_reciente, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$cambio_proveedor_reciente)
 
-original_df%>%
-  ggplot(aes(x = cambio_proveedor_reciente, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = cambio_proveedor_reciente, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = cambio_proveedor_reciente,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis descriptivo univariante y bivariante medida secundaria
@@ -784,41 +565,20 @@ original_df %>%
               size = 3)
 
 
-original_df%>%
-  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$medida_secundaria_fallo_internet_fijo)
 
-original_df%>%
-  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = medida_secundaria_fallo_internet_fijo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     = medida_secundaria_fallo_internet_fijo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante y bivariante pago de internet
@@ -837,41 +597,20 @@ original_df %>%
               size = 3)
 
 
-original_df%>%
-  ggplot(aes(x = pago_internet_dolares, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$pago_internet_dolares)
 
-original_df%>%
-  ggplot(aes(x = pago_internet_dolares, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = pago_internet_dolares, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     =pago_internet_dolares,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #INTERNET MOVIL
@@ -891,41 +630,20 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = acceso_celular_rrss, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$acceso_celular_rrss)
 
-original_df%>%
-  ggplot(aes(x = acceso_celular_rrss, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = acceso_celular_rrss, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     =acceso_celular_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante de calidad de conexion movil
@@ -943,41 +661,20 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = calidad_navegacion_movil, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$calidad_navegacion_movil)
 
-original_df%>%
-  ggplot(aes(x = calidad_navegacion_movil, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = calidad_navegacion_movil, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     =calidad_navegacion_movil,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante de percepcion positiva
@@ -995,41 +692,20 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_positivo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$navegacion_movil_positivo)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_positivo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_positivo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     =navegacion_movil_positivo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
 
 #analisis univariante de percepcion negativa
@@ -1047,88 +723,18 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_negativo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_negativo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
 
-original_df%>%
-  ggplot(aes(x = navegacion_movil_negativo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue"))  
-  #aes(x= "Ocupacion", y= "Factor 1 Redes Sociales")
-```
-
-#analisis descriptivo bivariante fact 1 vs calidad de internet fijo
-
-```{r}
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac1_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Calidad de Internet Fijo", y= "Factor 1 Adiccion Redes Sociales")
- 
-```
-
-#analisis descriptivo bivariante fact 2 vs calidad de internet fijo
-
-```{r}
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac2_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Calidad de Internet Fijo", y= "Factor 2 Adiccion Redes Sociales")
-```
-
-#analisis descriptivo bivariante fact 3 vs calidad de internet fijo
-
-```{r}
-original_df%>%
-  ggplot(aes(x = calidad_internet_fijo, y =  fac3_ars)) +
-  geom_violin() + 
-  stat_summary(fun = "mean",
-               geom = "point",
-               aes(color = "Mean")) +
-  stat_summary(fun = "median",
-               geom = "point",
-               aes(color = "Median")) +
- scale_colour_manual(values = c("red", "blue")) 
-  # aes(x= "Calidad de Internet Fijo", y= "Factor 3 Adiccion Redes Sociales")
+ggbetweenstats(
+  data  = original_df,
+  x     =internet_fijo_negativo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+)
 ```
