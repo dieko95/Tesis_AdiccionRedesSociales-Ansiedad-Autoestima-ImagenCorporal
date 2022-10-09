@@ -97,18 +97,39 @@ vis_miss(original_df, sort_miss = TRUE)
 ```{r}
   
     #ADICCION A LAS REDES SOCIALES
+
+      #ARS Factor Total
+       original_df %>% 
+        ggplot(aes(y =factor_total_ars)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor Unificado") +
+        geom_boxplot()
   
-      #ARS fac total
+      #ARS fac 1
   
       original_df %>% 
-        ggplot(aes(y =factor_total_ars)) +
+        ggplot(aes(y =fac1_ars)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
         geom_boxplot()
+  
+  
+      #ARS fac 2
+  
+      original_df %>% 
+        ggplot(aes(y = fac2_ars)) +
+        labs(x= "Encuestados", y= "Frecuencia de Factor 2 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
+        geom_boxplot()
+  
+      #ARS fac 3 
+  
+      original_df %>% 
+      ggplot(aes(y = fac3_ars)) +
+       labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
+      geom_boxplot()
   
 
 ```
 
-#Outliers de factores Autoestima
+#Outliers factores Autoestima
 
 ```{r}
 #AUTOESTIMA
@@ -126,7 +147,7 @@ vis_miss(original_df, sort_miss = TRUE)
       geom_boxplot()
 ```
 
-#Outliers de factores BSQ
+#Outliers factores BSQ
 
 ```{r}
       #BSQ fac 1
@@ -148,7 +169,7 @@ vis_miss(original_df, sort_miss = TRUE)
         geom_boxplot()
 ```
 
-#Análisis descriptivo municipio
+#Análisis descriptivo Municipio
 
 ```{r}
 original_df %>% 
@@ -173,7 +194,7 @@ original_df %>%
 
 ```
 
-#analisis descriptivo univariante sexo
+#Análisis descriptivo univariante Sexo
 
 ```{r}
 #Sexo
@@ -192,7 +213,7 @@ original_df %>%
 
 ```
 
-#analisis descriptivo univariante edad
+#Análisis descriptivo univariante Edad
 
 ```{r}
 #Edad
@@ -210,7 +231,7 @@ original_df %>%
               size = 3)
 ```
 
-#analisis descriptivo univariante tipo de dispositivo
+#Análisis descriptivo univariante y bivariante Factor unificado ARS vs Tipo de Dispositivo
 
 ```{r}
 #Tipo de dispositivo
@@ -226,11 +247,7 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
-```
 
-#analisis descriptivo bivariante Factor total ARS vs tipo de dispositivo
-
-```{r}
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$tipo_dispositivo_rrss)
 
@@ -243,11 +260,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Tipo de Dispositivo" # Titulo con variables.
 )
 ```
 
-#analisis univariante ocupacion
+#Análisis univariante y bivariante Factor unificado ARS vs Ocupación
 
 ```{r}
 original_df %>% 
@@ -261,11 +278,7 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
-```
 
-#Análisis descriptivo bivariante Factor total ARS vs ocupacion
-
-```{r}
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$trabajo_actual)
 
@@ -278,7 +291,7 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
 )
 ```
 
@@ -300,7 +313,7 @@ original_df %>%
 
 #INTERNET FIJO
 
-#analisis univariante y bivariante Factor total ARS vs internet fijo
+#Análisis univariante y bivariante Factor unificado ARS vs Internet Fijo
 
 ```{r}
 original_df %>% 
@@ -327,11 +340,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Internet Fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante calidad de conectividad
+#Análisis univariante y bivariante Factor unificado ARS vs Calidad de Conectividad
 
 ```{r}
 original_df %>% 
@@ -358,11 +371,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Calidad de Internet Fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor total ARS vs fallas de servicio
+#Análisis univariante y bivariante Factor unificado ARS vs Fallas de Servicio
 
 ```{r}
 original_df %>% 
@@ -389,11 +402,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Fallas del Servicio" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor total ARS vs percepcion positiva del servicio
+#Análisis univariante y bivariante Factor unificado ARS vs Percepción Positiva del Servicio
 
 ```{r}
 original_df %>% 
@@ -420,11 +433,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Percepción Positiva del Servicio fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor Total vs percepcion negativa del servicio
+#Análisis univariante y bivariante Factor unificado ARS vs s Percepción Negativa del Servicio
 
 ```{r}
 original_df %>% 
@@ -451,11 +464,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor total ARS vs reestablecimiento del servicio de internet
+#Análisis univariante y bivariante Factor unificado ARS vs Reestablecimiento del Servicio de Internet
 
 ```{r}
 original_df %>% 
@@ -482,11 +495,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor total ARS Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor total ARS vs tipo de empresa
+#Análisis univariante y bivariante Factor unificado ARS vs Tipo de Empresa
 
 ```{r}
 original_df %>% 
@@ -513,11 +526,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Tipo de Empresa" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante Factor total ARS vs cambio de proveedor
+#Análisis univariante y bivariante Factor unificado ARS vs Cambio de Proveedor
 
 ```{r}
 original_df %>% 
@@ -545,11 +558,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
 )
 ```
 
-#analisis descriptivo univariante y bivariante medida secundaria
+#Análisis descriptivo univariante y bivariante Factor unificado ARS vs Medida Secundaria
 
 ```{r}
 original_df %>% 
@@ -577,11 +590,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
 )
 ```
 
-#analisis univariante y bivariante pago de internet
+#Análisis univariante y bivariante Factor unificado ARS vs Pago de Internet
 
 ```{r}
 original_df %>% 
@@ -609,13 +622,13 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
 )
 ```
 
 #INTERNET MOVIL
 
-#analisis descriptivo acceso rrss via movil
+#Análisis univariante y bivariante Factor unificado ARS vs Acceso rrss Via Móvil
 
 ```{r}
 original_df %>% 
@@ -642,11 +655,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Acceso desde Aparato Móvil a Redes Sociales" # Titulo con variables.
 )
 ```
 
-#analisis univariante de calidad de conexion movil
+#Análisis univariante y bivariante Factor unificado ARS vs de Calidad de Conexión Móvil
 
 ```{r}
 original_df %>% 
@@ -673,11 +686,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Calidad de Navegación Móvil" # Titulo con variables.
 )
 ```
 
-#analisis univariante de percepcion positiva
+#Análisis univariante y bivariante Factor unificado ARS vs de Percepción Positiva
 
 ```{r}
 original_df %>% 
@@ -704,11 +717,11 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
 )
 ```
 
-#analisis univariante de percepcion negativa
+#Análisis univariante y bivariante Factor unificado ARS vs de Percepción Negativa
 
 ```{r}
 original_df %>% 
@@ -735,6 +748,6 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Trabajo Actual" # Titulo con variables.
+  title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )
 ```
