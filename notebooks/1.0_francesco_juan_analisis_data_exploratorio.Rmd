@@ -749,3 +749,27 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )
 ```
+
+# REGRESIÓN LINEAL
+
+### Variables principales (ARS \~ AUTO, BSQ)
+
+```{r}
+#Creamos la regresion 
+
+model_lr <- lm(original_df$factor_total_ars ~ original_df$fac1_auto + original_df$fac2_auto + original_df$fac1_bsq + original_df$fac2_bsq + original_df$fac3_bsq, data = original_df)
+
+summary(model_lr)
+
+```
+
+```{r}
+#Multicolinealidad 
+car::vif(model_lr)
+
+summary(original_df$fac1_auto)
+summary(original_df$fac2_auto)
+summary(original_df$fac1_bsq)
+summary(original_df$fac2_bsq)
+summary(original_df$fac3_bsq)
+```
