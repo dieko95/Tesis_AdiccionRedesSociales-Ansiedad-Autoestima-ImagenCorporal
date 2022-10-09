@@ -750,6 +750,48 @@ ggbetweenstats(
 )
 ```
 
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
+
+### Variable Centrales - Autoestima
+
+#Factor unificado de ARS vs Factor 1 Autoestima
+
+```{r}
+
+```
+
+#Factor unificado de ARS vs Factor 2 Autoestima
+
+```{r}
+
+```
+
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
+
+### Variable Centrales - Body Shape Questionnaire (BSQ)
+
+#Factor unificado de ARS vs Factor 1 BSQ
+
+```{r}
+original_df%>%
+  ggplot(aes(fac1_bsq, fill = fac1_bsq)) +
+  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+  labs(x= "Factor 1 BSQ", y= "Frecuencia", title = "Factor 1 BSQ", subtitle = " Puntajes del Factor 1 BSQ")
+
+```
+
+#Factor unificado de ARS vs Factor 2 BSQ
+
+```{r}
+
+```
+
+#Factor unificado de ARS vs Factor 3 BSQ
+
+```{r}
+
+```
+
 # REGRESIÓN LINEAL
 
 ### Variables principales (ARS \~ AUTO, BSQ)
