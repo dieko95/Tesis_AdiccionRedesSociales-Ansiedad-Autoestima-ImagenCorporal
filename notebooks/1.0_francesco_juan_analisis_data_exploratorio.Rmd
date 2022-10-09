@@ -8,7 +8,7 @@ date: '2022-10-04'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Read Data
+# INPUT DATA
 
 ```{r}
 library(readr)
@@ -35,7 +35,7 @@ original_df <- read_delim("../data/raw/Data para R.csv",
 View(original_df)
 ```
 
-#Recodificación de datos
+**#Recodificación de datos**
 
 ```{r}
 #Convertir respuestas erroneas a NA
@@ -52,7 +52,7 @@ original_df <- mutate(original_df, factor_total_ars = original_df$fac1_ars + ori
 
 ```
 
-#Total Encuestados y Porcentajes
+**#Total Encuestados y Porcentajes**
 
 ```{r}
 
@@ -83,7 +83,7 @@ original_df <- mutate(original_df, factor_total_ars = original_df$fac1_ars + ori
   
 ```
 
-#Valores nulos
+**#Valores nulos**
 
 ```{r}
 #Valores nulos
@@ -92,7 +92,9 @@ vis_miss(original_df, sort_miss = TRUE)
   
 ```
 
-#Outliers factores adicción a las redes sociales
+# OUTLIERS
+
+**#Factores adicción a las redes sociales**
 
 ```{r}
   
@@ -129,7 +131,7 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ```
 
-#Outliers factores Autoestima
+**#Factores Autoestima**
 
 ```{r}
 #AUTOESTIMA
@@ -147,7 +149,7 @@ vis_miss(original_df, sort_miss = TRUE)
       geom_boxplot()
 ```
 
-#Outliers factores BSQ
+**#Factores BSQ**
 
 ```{r}
       #BSQ fac 1
@@ -169,7 +171,11 @@ vis_miss(original_df, sort_miss = TRUE)
         geom_boxplot()
 ```
 
-#Análisis descriptivo Municipio
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE
+
+### Variables descriptivas
+
+**#Municipio**
 
 ```{r}
 original_df %>% 
@@ -194,7 +200,7 @@ original_df %>%
 
 ```
 
-#Análisis descriptivo univariante Sexo
+**#Sexo**
 
 ```{r}
 #Sexo
@@ -213,7 +219,7 @@ original_df %>%
 
 ```
 
-#Análisis descriptivo univariante Edad
+**#Edad**
 
 ```{r}
 #Edad
@@ -231,7 +237,11 @@ original_df %>%
               size = 3)
 ```
 
-#Análisis descriptivo univariante y bivariante Factor unificado ARS vs Tipo de Dispositivo
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
+
+### VARIABLES DESCRIPTIVAS
+
+**#Factor unificado ARS vs Tipo de Dispositivo**
 
 ```{r}
 #Tipo de dispositivo
@@ -264,7 +274,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Ocupación
+**#Factor unificado ARS vs Ocupación**
 
 ```{r}
 original_df %>% 
@@ -295,25 +305,11 @@ ggbetweenstats(
 )
 ```
 
-#nivel educativo
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
-```{r}
-original_df %>% 
-  count(educación) %>% # Contar sujetos por municipio
-  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
-  ggplot(aes(x=educación, y= n, fill = educación, label = scales::percent(pct))) +
-    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Nivel Educativo", y= "Frecuencia", title = "Nivel Educativo", subtitle = "Frecuencia de nivel educativo") +
-    guides(fill = guide_legend(title = "Nivel Educativo"),
-           colour = guide_legend(title = "Nivel Educativo")) + 
-    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
-              vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
-```
+### Variable Control Internet Fijo
 
-#INTERNET FIJO
-
-#Análisis univariante y bivariante Factor unificado ARS vs Internet Fijo
+**#Factor unificado ARS vs Internet Fijo**
 
 ```{r}
 original_df %>% 
@@ -344,7 +340,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Calidad de Conectividad
+**#Factor unificado ARS vs Calidad de Conectividad**
 
 ```{r}
 original_df %>% 
@@ -375,7 +371,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Fallas de Servicio
+**#Factor unificado ARS vs Fallas de Servicio**
 
 ```{r}
 original_df %>% 
@@ -406,7 +402,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Percepción Positiva del Servicio
+**#Factor unificado ARS vs Percepción Positiva del Servicio**
 
 ```{r}
 original_df %>% 
@@ -437,7 +433,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs s Percepción Negativa del Servicio
+**#Factor unificado ARS vs s Percepción Negativa del Servicio**
 
 ```{r}
 original_df %>% 
@@ -468,7 +464,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Reestablecimiento del Servicio de Internet
+**#Factor unificado ARS vs Reestablecimiento del Servicio de Internet**
 
 ```{r}
 original_df %>% 
@@ -499,7 +495,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Tipo de Empresa
+**#Factor unificado ARS vs Tipo de Empresa**
 
 ```{r}
 original_df %>% 
@@ -530,7 +526,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Cambio de Proveedor
+**#Factor unificado ARS vs Cambio de Proveedor**
 
 ```{r}
 original_df %>% 
@@ -562,7 +558,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis descriptivo univariante y bivariante Factor unificado ARS vs Medida Secundaria
+**#Factor unificado ARS vs Medida Secundaria**
 
 ```{r}
 original_df %>% 
@@ -594,7 +590,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs Pago de Internet
+**#Factor unificado ARS vs Pago de Internet**
 
 ```{r}
 original_df %>% 
@@ -626,9 +622,11 @@ ggbetweenstats(
 )
 ```
 
-#INTERNET MOVIL
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
-#Análisis univariante y bivariante Factor unificado ARS vs Acceso rrss Via Móvil
+### Variable Control Internet Móvil
+
+**#Factor unificado ARS vs Acceso rrss Via Móvil**
 
 ```{r}
 original_df %>% 
@@ -659,7 +657,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs de Calidad de Conexión Móvil
+**#Factor unificado ARS vs de Calidad de Conexión Móvil**
 
 ```{r}
 original_df %>% 
@@ -690,7 +688,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs de Percepción Positiva
+**#Factor unificado ARS vs de Percepción Positiva**
 
 ```{r}
 original_df %>% 
@@ -721,7 +719,7 @@ ggbetweenstats(
 )
 ```
 
-#Análisis univariante y bivariante Factor unificado ARS vs de Percepción Negativa
+**#Factor unificado ARS vs de Percepción Negativa**
 
 ```{r}
 original_df %>% 
