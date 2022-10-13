@@ -131,6 +131,8 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ```
 
+##### Se presentan 3 valores atípicos, 
+
 **#Factores Autoestima**
 
 ```{r}
@@ -138,13 +140,13 @@ vis_miss(original_df, sort_miss = TRUE)
   
       #Auto fac 1
       original_df %>% 
-      ggplot(aes(y = original_df$fac1_auto)) +
+      ggplot(aes(y =fac1_auto)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 1 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 1") +
       geom_boxplot()
       
       #Auto fac 2
       original_df %>% 
-      ggplot(aes(y = original_df$fac2_auto)) +
+      ggplot(aes(y =fac2_auto)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 2 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 2") +
       geom_boxplot()
 ```
@@ -154,19 +156,19 @@ vis_miss(original_df, sort_miss = TRUE)
 ```{r}
       #BSQ fac 1
       original_df %>% 
-      ggplot(aes(y = original_df$fac1_bsq)) +
+      ggplot(aes(y =fac1_bsq)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 1 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 1") +
       geom_boxplot()
  
       #BSQ fac 2
       original_df %>% 
-      ggplot(aes(y = original_df$fac2_bsq)) +
+      ggplot(aes(y =fac2_bsq)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 2 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 2") +
       geom_boxplot()
       
       #BSQ fac 3
       original_df %>% 
-        ggplot(aes(y = original_df$fac3_bsq)) +
+        ggplot(aes(y =fac3_bsq)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 3 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 3") +
         geom_boxplot()
 ```
