@@ -35,6 +35,8 @@ original_df <- read_delim("../data/raw/Data para R.csv",
 View(original_df)
 ```
 
+# Descripción y Recodificación de la data
+
 **#Recodificación de datos**
 
 ```{r}
@@ -131,7 +133,7 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ```
 
-##### Se presentan 3 valores atípicos, 
+##### Se presentan 3 valores atípicos,
 
 **#Factores Autoestima**
 
@@ -140,14 +142,14 @@ vis_miss(original_df, sort_miss = TRUE)
   
       #Auto fac 1
       original_df %>% 
-      ggplot(aes(y =fac1_auto)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 1 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 1") +
+      ggplot(aes(y =area_interperso)) +
+        labs(x= "Encuestados", y= "Frecuencia del Área Interpersonal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del área interpersonal de la Autoestima") +
       geom_boxplot()
       
       #Auto fac 2
       original_df %>% 
-      ggplot(aes(y =fac2_auto)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 2 Autoestima", title = "Autoestima", subtitle = "Frecuencia del Factor 2") +
+      ggplot(aes(y =area_personal_corporal)) +
+        labs(x= "Encuestados", y= "Frecuencia del Área Personal/Corporal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del Área personal y corporal de la Autoestima") +
       geom_boxplot()
 ```
 
@@ -801,7 +803,7 @@ original_df%>%
 ```{r}
 #Creamos la regresion 
 
-model_lr <- lm(original_df$factor_total_ars ~ original_df$fac1_auto + original_df$fac2_auto + original_df$fac1_bsq + original_df$fac2_bsq + original_df$fac3_bsq, data = original_df)
+model_lr <- lm(original_df$factor_total_ars ~ original_df$area_interperso + original_df$area_personal_corporal + original_df$fac1_bsq + original_df$fac2_bsq + original_df$fac3_bsq, data = original_df)
 
 summary(model_lr)
 
