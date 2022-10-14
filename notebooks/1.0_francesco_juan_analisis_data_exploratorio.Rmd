@@ -505,7 +505,7 @@ original_df %>%
            colour = guide_legend(title = "Reestablecimiento de servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+              size = 3)+ (theme(axis.text.x = element_text(angle = 90, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$fallo_internet_reestablecimiento)
