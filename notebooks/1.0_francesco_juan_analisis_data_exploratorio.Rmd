@@ -206,7 +206,7 @@ original_df %>%
            colour = guide_legend(title = "Municipio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
 ```
 
@@ -270,7 +270,7 @@ original_df %>%
            colour = guide_legend(title = "Tipos de dispositivos")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$tipo_dispositivo_rrss)
@@ -285,7 +285,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Tipo de Dispositivo" # Titulo con variables.
-)
+) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
 ```
 
 ##### En cuanto a la preferencia de dispositivos más usados para el consumo de redes sociales, tenemos en primer lugar al celular con 68,58%, luego en segundo lugar con 21,46% se encuentra el celular y laptop. El resto de las opciones representan el 9,96%, distribuyendose casi equitativamente entre tablet, computadora fija y laptop.
@@ -439,7 +439,7 @@ original_df %>%
            colour = guide_legend(title = "Percepcion positiva del servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_positivo)
@@ -454,7 +454,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Positiva del Servicio fijo" # Titulo con variables.
-)
+)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
 
 ##### 24,1% percibe positivamente el servicio por que la navegación es rápida. 21,8% porque siempre presenta el servicio. 18,4% porque el servicio es barato. 16,5% cree que es positivo por otro motivo. 9,6% porque siempre se atienden sus reclamos. 6,1% porque nunca se le cae el internet, 3,4% no presenta servicio.
@@ -472,7 +472,7 @@ original_df %>%
            colour = guide_legend(title = "Percepcion negativa del servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3) + coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
@@ -487,7 +487,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
-)
+)+ coord_flip()
 ```
 
 ##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque  nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
@@ -505,7 +505,7 @@ original_df %>%
            colour = guide_legend(title = "Reestablecimiento de servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$fallo_internet_reestablecimiento)
@@ -520,7 +520,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor total ARS Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
-)
+)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
 
 ##### 66,28% expresa que el servicio se restablece el mismo día. 18,01% tardan de 1 a 2 días. 6,13% entre 2 y 4 días. 6,13% indica que tardan más de 4 días y 3,45% no presentan servicio.
@@ -538,7 +538,7 @@ original_df %>%
            colour = guide_legend(title = "Tipo de empresa servicio fijo")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$tipo_empresa_internet_fijo)
@@ -605,7 +605,7 @@ original_df %>%
            colour = guide_legend(title = "Medida alterna")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
@@ -621,7 +621,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
-)
+)+ coord_flip()
 ```
 
 ##### 59% dice que la medida alternativa qye más usan frente a la caida del servicio fijo son los datos móviles. 14,94% internet satelital. 11,11% dispositivos de banda ancha. 6,13% se van a casa de un conocido, 3,4% no presenta el servicio. 3,07% usa wifi del trabajo o local. 19,2% usa wifi público
@@ -743,7 +743,7 @@ original_df %>%
            colour = guide_legend(title = "Percepcion positiva de la navegacion movil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$navegacion_movil_positivo)
@@ -758,7 +758,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
-)
+)+ coord_flip()
 ```
 
 ##### 29,9% dice que la navegación movil es positiva porque puede navegar sin inconvenientes. 23% No lo considera positivo por ninguna razón anterior. 14,2% todo se descarga rápido, 12,3% los datos nunca se acaban, 10,7% siempre tiene señal movil. 6,5% por otro motivo.
@@ -776,7 +776,7 @@ original_df %>%
            colour = guide_legend(title = "Percepcion negativa de la navegacion movil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
@@ -791,7 +791,7 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
-)
+)+ coord_flip()
 ```
 
 ##### 34,9% lo considera negativo porque los megas siempre se acaban. 21,5% los megas son muy caros. 13,4% navega muy lento. 12,3% no lo considera negativo por ningún motivo expuesto. 9,6% no tiene señal. 5% por otro motivo.
