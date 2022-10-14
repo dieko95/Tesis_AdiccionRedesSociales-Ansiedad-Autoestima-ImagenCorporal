@@ -133,8 +133,6 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ```
 
-##### Se presentan 3 valores atípicos,
-
 **#Factores Autoestima**
 
 ```{r}
@@ -152,6 +150,8 @@ vis_miss(original_df, sort_miss = TRUE)
         labs(x= "Encuestados", y= "Frecuencia del Área Personal/Corporal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del Área personal y corporal de la Autoestima") +
       geom_boxplot()
 ```
+
+##### únicamente se presentan 2 outliers en el factor 2, el cual está asociado a la autoestima en el área personal y corporal. 
 
 **#Factores BSQ**
 
@@ -175,6 +175,8 @@ vis_miss(original_df, sort_miss = TRUE)
         geom_boxplot()
 ```
 
+##### En cuanto al instrumento de Body Shape Questionnaire, el modelo ganador presenta 3 factores, el primero de los factores presenta 6 outliers por exceso de puntuación, el segundo presenta 23 valores por exceso y 1 por defecto, por último, presenta 5 outliers por exceso. Cabe destacar que cuando se comenta por "exceso" se hace referencia a puntajes que describen un puntaje atípico muy por encima a lo normal de la muestra investigada, esta misma regla aplica a los puntajes por defecto, los cuales presentan un puntaje muy bajo a lo normal de la muestra investigada.
+
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE
 
 ### Variables descriptivas
@@ -186,6 +188,10 @@ original_df %>%
   count(municipio) %>% 
   mutate(pct = prop.table(n))
 ```
+
+##### En cuanto a la distribución de la muestra en referencia a los municipios, se obtuvo que:
+
+##### 35 personas forman parte del municipio Baruta 13,4%. 10 personas forman parte del municipio Chacao 3,83%. 12 personas forman parte del municipio El Hatillo 4,59%. 143 personas forman parte del municipio Libertador 54,78%. 61 personas forman parte de el municipio Sucre 23,37%.
 
 ```{r}
 #municipio
@@ -223,6 +229,8 @@ original_df %>%
 
 ```
 
+##### En referencia al la frecuencia de identificación de sexo de los ecuestados, 59% se identificó como Femenino, 41% como Masculino y menos del 1% como No binario.
+
 **#Edad**
 
 ```{r}
@@ -240,6 +248,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 ```
+
+##### En cuanto a la frecuencia de edades de la muestra investigada, obtenemos que de 18 a 20 años existe un 35,3% de la muestra, de 21 a 22 años un 40,6% de la muestra y de 23 a 25 años un 24,2% de la muestra. 
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -278,6 +288,8 @@ ggbetweenstats(
 )
 ```
 
+##### En cuanto a la preferencia de dispositivos más usados para el consumo de redes sociales, tenemos en primer lugar al celular con 68,58%, luego en segundo lugar con 21,46% se encuentra el celular y laptop. El resto de las opciones representan el 9,96%, distribuyendose casi equitativamente entre tablet, computadora fija y laptop.
+
 **#Factor unificado ARS vs Ocupación**
 
 ```{r}
@@ -308,6 +320,8 @@ ggbetweenstats(
   title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
 )
 ```
+
+##### En referencia a la frecuencia de la ocupación de la muestra, 52,9% presenta trabajo y 47,1% no.
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -344,6 +358,8 @@ ggbetweenstats(
 )
 ```
 
+##### 97% de la muestra indica tener internet fijo y 3% indica no tenerlo.
+
 **#Factor unificado ARS vs Calidad de Conectividad**
 
 ```{r}
@@ -374,6 +390,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Calidad de Internet Fijo" # Titulo con variables.
 )
 ```
+
+##### 32,95% de la muestra califica su internet como regular hacia buena, 27,20% la califica como buena, 14,94% la califica como muy buena, 14,56% regular hacia mala, 3,45% la califica como mala, 3,45% muy mala y 3,45% no presenta el servicio.
 
 **#Factor unificado ARS vs Fallas de Servicio**
 
@@ -406,6 +424,8 @@ ggbetweenstats(
 )
 ```
 
+##### 65,9% expresa no presentar fallas del servicio fijo, 24,9% expresa presentar fallas todos los días, 5,7% dice no presentar fallas nunca y 3,4% no presenta servicio.
+
 **#Factor unificado ARS vs Percepción Positiva del Servicio**
 
 ```{r}
@@ -436,6 +456,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Percepción Positiva del Servicio fijo" # Titulo con variables.
 )
 ```
+
+##### 24,1% percibe positivamente el servicio por que la navegación es rápida. 21,8% porque siempre presenta el servicio. 18,4% porque el servicio es barato. 16,5% cree que es positivo por otro motivo. 9,6% porque siempre se atienden sus reclamos. 6,1% porque nunca se le cae el internet, 3,4% no presenta servicio.
 
 **#Factor unificado ARS vs s Percepción Negativa del Servicio**
 
@@ -468,6 +490,8 @@ ggbetweenstats(
 )
 ```
 
+##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque  nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
+
 **#Factor unificado ARS vs Reestablecimiento del Servicio de Internet**
 
 ```{r}
@@ -499,6 +523,8 @@ ggbetweenstats(
 )
 ```
 
+##### 66,28% expresa que el servicio se restablece el mismo día. 18,01% tardan de 1 a 2 días. 6,13% entre 2 y 4 días. 6,13% indica que tardan más de 4 días y 3,45% no presentan servicio.
+
 **#Factor unificado ARS vs Tipo de Empresa**
 
 ```{r}
@@ -529,6 +555,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Tipo de Empresa" # Titulo con variables.
 )
 ```
+
+##### 57,5% dice tener servicio de internet fijo por un proveedor privado. 38,7% por un proveedor público, 3,4% no presenta servicio fijo
 
 **#Factor unificado ARS vs Cambio de Proveedor**
 
@@ -562,6 +590,8 @@ ggbetweenstats(
 )
 ```
 
+##### 65% dice no haber cambiado el proveedor de servicio fijo, 31% dice si haber cambiado recientemente el proveedor y 3,4% no presenta el servicio.
+
 **#Factor unificado ARS vs Medida Secundaria**
 
 ```{r}
@@ -594,6 +624,8 @@ ggbetweenstats(
 )
 ```
 
+##### 59% dice que la medida alternativa qye más usan frente a la caida del servicio fijo son los datos móviles. 14,94% internet satelital. 11,11% dispositivos de banda ancha. 6,13% se van a casa de un conocido, 3,4% no presenta el servicio. 3,07% usa wifi del trabajo o local. 19,2% usa wifi público
+
 **#Factor unificado ARS vs Pago de Internet**
 
 ```{r}
@@ -625,6 +657,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
 )
 ```
+
+##### 50,6% no paga su servicio fijo en divisas. 46% si paga en divisas. 3,4% no presenta servicio.
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -661,6 +695,8 @@ ggbetweenstats(
 )
 ```
 
+##### El 95,8% presenta acceso a redes sociales vía movil.
+
 **#Factor unificado ARS vs de Calidad de Conexión Móvil**
 
 ```{r}
@@ -691,6 +727,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Calidad de Navegación Móvil" # Titulo con variables.
 )
 ```
+
+##### 51,3% cree que la calidad del servicio movil se mantiene. 26,4% expresa que ha mejorado. 18,8% dice que ha empeorado.
 
 **#Factor unificado ARS vs de Percepción Positiva**
 
@@ -723,6 +761,8 @@ ggbetweenstats(
 )
 ```
 
+##### 29,9% dice que la navegación movil es positiva porque puede navegar sin inconvenientes. 23% No lo considera positivo por ninguna razón anterior. 14,2% todo se descarga rápido, 12,3% los datos nunca se acaban, 10,7% siempre tiene señal movil. 6,5% por otro motivo.
+
 **#Factor unificado ARS vs de Percepción Negativa**
 
 ```{r}
@@ -753,6 +793,8 @@ ggbetweenstats(
   title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )
 ```
+
+##### 34,9% lo considera negativo porque los megas siempre se acaban. 21,5% los megas son muy caros. 13,4% navega muy lento. 12,3% no lo considera negativo por ningún motivo expuesto. 9,6% no tiene señal. 5% por otro motivo.
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
