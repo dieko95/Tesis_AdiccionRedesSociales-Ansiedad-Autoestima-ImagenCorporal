@@ -151,7 +151,7 @@ vis_miss(original_df, sort_miss = TRUE)
       geom_boxplot()
 ```
 
-##### únicamente se presentan 2 outliers en el factor 2, el cual está asociado a la autoestima en el área personal y corporal. 
+##### únicamente se presentan 2 outliers en el factor 2, el cual está asociado a la autoestima en el área personal y corporal.
 
 **#Factores BSQ**
 
@@ -249,7 +249,39 @@ original_df %>%
               size = 3)
 ```
 
-##### En cuanto a la frecuencia de edades de la muestra investigada, obtenemos que de 18 a 20 años existe un 35,3% de la muestra, de 21 a 22 años un 40,6% de la muestra y de 23 a 25 años un 24,2% de la muestra. 
+##### En cuanto a la frecuencia de edades de la muestra investigada, obtenemos que de 18 a 20 años existe un 35,3% de la muestra, de 21 a 22 años un 40,6% de la muestra y de 23 a 25 años un 24,2% de la muestra.
+
+**#Educación**
+
+```{r}
+original_df %>% 
+  count(educación) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=educación, y= n, fill = educación, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Educación ", y= "Frecuencia", title = "Nivel educativo", subtitle = "Nivel educativo de los encuestado") +
+    guides(fill = guide_legend(title = "Nivel educativo"),
+           colour = guide_legend(title = "Nivel educativo")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+```
+
+**#Tipo de universidad**
+
+```{r}
+original_df %>% 
+  count(tipo_universidad) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=tipo_universidad, y= n, fill = tipo_universidad, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Tipo de Universidad ", y= "Frecuencia", title = "Tipo de Universidad", subtitle = "Tipo de Universidad de los encuestados") +
+    guides(fill = guide_legend(title = "Tipo de Universidad"),
+           colour = guide_legend(title = "Tipo de Universidad")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+```
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -298,9 +330,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=trabajo_actual, y= n, fill = trabajo_actual, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Ocupacion", y= "Frecuencia", title = "Ocupacion", subtitle = "Frecuencia de ocupacion de los encuestados") +
-    guides(fill = guide_legend(title = "Ocupacion"),
-           colour = guide_legend(title = "Ocupacion")) + 
+    labs(x= "Ocupación", y= "Frecuencia", title = "Ocupación", subtitle = "Frecuencia de ocupación de los encuestados") +
+    guides(fill = guide_legend(title = "Ocupación"),
+           colour = guide_legend(title = "Ocupación")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
@@ -373,7 +405,7 @@ original_df %>%
            colour = guide_legend(title = "Calidad de internet")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
+              size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 5)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$factor_total_ars, original_df$calidad_internet_fijo)
@@ -434,9 +466,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=internet_fijo_positivo, y= n, fill = internet_fijo_positivo, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Percepcion positiva del servicio", y= "Frecuencia", title = "Percepcion positiva del servicio", subtitle = "Frecuencia de la percepcion del servicio fijo") +
-    guides(fill = guide_legend(title = "Percepcion positiva del servicio"),
-           colour = guide_legend(title = "Percepcion positiva del servicio")) + 
+    labs(x= "Percepción positiva del servicio", y= "Frecuencia", title = "Percepción positiva del servicio", subtitle = "Frecuencia de la percepción del servicio fijo") +
+    guides(fill = guide_legend(title = "Percepción positiva del servicio"),
+           colour = guide_legend(title = "Percepción positiva del servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
@@ -467,9 +499,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=internet_fijo_negativo, y= n, fill = internet_fijo_negativo, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Percepcion negativa del servicio", y= "Frecuencia", title = "Percepcion negativa del servicio", subtitle = "Frecuencia de la percepcion del negativa fijo") +
-    guides(fill = guide_legend(title = "Percepcion negativa del servicio"),
-           colour = guide_legend(title = "Percepcion negativa del servicio")) + 
+    labs(x= "Percepción negativa del servicio", y= "Frecuencia", title = "Percepción negativa del servicio", subtitle = "Frecuencia de la percepción del negativa fijo") +
+    guides(fill = guide_legend(title = "Percepción negativa del servicio"),
+           colour = guide_legend(title = "Percepción negativa del servicio")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3) + coord_flip()
@@ -490,7 +522,7 @@ ggbetweenstats(
 )+ coord_flip()
 ```
 
-##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque  nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
+##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
 
 **#Factor unificado ARS vs Reestablecimiento del Servicio de Internet**
 
@@ -672,9 +704,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=acceso_celular_rrss, y= n, fill = acceso_celular_rrss, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Acceso a redes sociales via movil", y= "Frecuencia", title = "Acceso a redes sociales via movil", subtitle = "Frecuencia de acceso a redes sociales via movil") +
-    guides(fill = guide_legend(title = "Acceso a rrss via movil"),
-           colour = guide_legend(title = "Acceso a rrss via movil")) + 
+    labs(x= "Acceso a redes sociales vía móvil", y= "Frecuencia", title = "Acceso a redes sociales vía móvil", subtitle = "Frecuencia de acceso a redes sociales vía móvil") +
+    guides(fill = guide_legend(title = "Acceso a rrss vía móvil"),
+           colour = guide_legend(title = "Acceso a rrss vía móvil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
@@ -705,9 +737,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=calidad_navegacion_movil, y= n, fill = calidad_navegacion_movil, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Calidad de navegacion movil", y= "Frecuencia", title = "Calidad de navegacion movil", subtitle = "Frecuencia de calidad de navegacion movil") +
-    guides(fill = guide_legend(title = "Calidad de navegacion movil"),
-           colour = guide_legend(title = "Calidad de navegacion movil")) + 
+    labs(x= "Calidad de navegación móvil", y= "Frecuencia", title = "Calidad de navegación móvil", subtitle = "Frecuencia de calidad de navegación móvil") +
+    guides(fill = guide_legend(title = "Calidad de navegación móvil"),
+           colour = guide_legend(title = "Calidad de navegación móvil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
@@ -738,9 +770,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=navegacion_movil_positivo, y= n, fill = navegacion_movil_positivo, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Percepcion positiva de la navegacion movil", y= "Frecuencia", title = "Percepcion positiva de la navegacion movil", subtitle = "Frecuencia de la percepcion positiva de la navegacion movil") +
-    guides(fill = guide_legend(title = "Percepcion positiva de la navegacion movil"),
-           colour = guide_legend(title = "Percepcion positiva de la navegacion movil")) + 
+    labs(x= "Percepción positiva de la navegación móvil", y= "Frecuencia", title = "Percepción positiva de la navegación móvil", subtitle = "Frecuencia de la percepción positiva de la navegación móvil") +
+    guides(fill = guide_legend(title = "Percepción positiva de la navegación móvil"),
+           colour = guide_legend(title = "Percepción positiva de la navegación móvil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
@@ -771,9 +803,9 @@ original_df %>%
   mutate(pct = prop.table(n)) %>% # Crear Porcentajes
   ggplot(aes(x=navegacion_movil_negativo, y= n, fill = navegacion_movil_negativo, label = scales::percent(pct))) +
     geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Percepcion negativa de la navegacion movil", y= "Frecuencia", title = "Percepcion negativa de la navegacion movil", subtitle = "Frecuencia de la percepcion negativa de la navegacion movil") +
-    guides(fill = guide_legend(title = "Percepcion negativa de la navegacion movil"),
-           colour = guide_legend(title = "Percepcion negativa de la navegacion movil")) + 
+    labs(x= "Percepción negativa de la navegación móvil", y= "Frecuencia", title = "Percepción negativa de la navegación móvil", subtitle = "Frecuencia de la percepción negativa de la navegación móvil") +
+    guides(fill = guide_legend(title = "Percepción negativa de la navegación móvil"),
+           colour = guide_legend(title = "Percepción negativa de la navegación móvil")) + 
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
