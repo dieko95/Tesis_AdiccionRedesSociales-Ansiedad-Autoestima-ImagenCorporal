@@ -105,7 +105,7 @@ vis_miss(original_df, sort_miss = TRUE)
       #ARS Factor Total
        original_df %>% 
         ggplot(aes(y =factor_total_ars)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor Unificado") +
+        labs(x= "Encuestados", y= "Frecuencia de Factor Unificado ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor Unificado") +
         geom_boxplot()
   
       #ARS fac 1
@@ -177,7 +177,7 @@ vis_miss(original_df, sort_miss = TRUE)
 
 ##### En cuanto al instrumento de Body Shape Questionnaire, el modelo ganador presenta 3 factores, el primero de los factores presenta 6 outliers por exceso de puntuación, el segundo presenta 23 valores por exceso y 1 por defecto, por último, presenta 5 outliers por exceso. Cabe destacar que cuando se comenta por "exceso" se hace referencia a puntajes que describen un puntaje atípico muy por encima a lo normal de la muestra investigada, esta misma regla aplica a los puntajes por defecto, los cuales presentan un puntaje muy bajo a lo normal de la muestra investigada.
 
-# ANÁLISIS DESCRIPTIVO UNIVARIANTE
+# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
 ### Variables descriptivas
 
@@ -208,6 +208,21 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$municipio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = municipio,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
+
 ```
 
 **#Sexo**
@@ -226,6 +241,21 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$sexo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = sexo,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 
 ```
 
@@ -247,6 +277,21 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$edad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = edad,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 ```
 
 ##### En cuanto a la frecuencia de edades de la muestra investigada, obtenemos que de 18 a 20 años existe un 35,3% de la muestra, de 21 a 22 años un 40,6% de la muestra y de 23 a 25 años un 24,2% de la muestra.
@@ -265,6 +310,21 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$educación)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = educación,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 ```
 
 **#Tipo de universidad**
@@ -281,6 +341,21 @@ original_df %>%
     geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$tipo_universidad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_universidad,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 ```
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
@@ -348,7 +423,7 @@ ggbetweenstats(
   x     = trabajo_actual,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
 )
 ```
@@ -385,7 +460,7 @@ ggbetweenstats(
   x     = internet_fijo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Internet Fijo" # Titulo con variables.
 )
 ```
@@ -418,7 +493,7 @@ ggbetweenstats(
   x     = calidad_internet_fijo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Calidad de Internet Fijo" # Titulo con variables.
 )
 ```
@@ -451,7 +526,7 @@ ggbetweenstats(
   x     = fallas_servicio,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Fallas del Servicio" # Titulo con variables.
 )
 ```
@@ -484,7 +559,7 @@ ggbetweenstats(
   x     = internet_fijo_positivo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Positiva del Servicio fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
@@ -517,7 +592,7 @@ ggbetweenstats(
   x     = internet_fijo_negativo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
 ```
@@ -550,7 +625,7 @@ ggbetweenstats(
   x     = fallo_internet_reestablecimiento,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor total ARS Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
@@ -583,7 +658,7 @@ ggbetweenstats(
   x     = tipo_empresa_internet_fijo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Tipo de Empresa" # Titulo con variables.
 )
 ```
@@ -617,7 +692,7 @@ ggbetweenstats(
   x     = cambio_proveedor_reciente,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
 )
 ```
@@ -651,7 +726,7 @@ ggbetweenstats(
   x     = medida_secundaria_fallo_internet_fijo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
 ```
@@ -685,7 +760,7 @@ ggbetweenstats(
   x     =pago_internet_dolares,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
 )
 ```
@@ -722,7 +797,7 @@ ggbetweenstats(
   x     =acceso_celular_rrss,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Acceso desde Aparato Móvil a Redes Sociales" # Titulo con variables.
 )
 ```
@@ -755,7 +830,7 @@ ggbetweenstats(
   x     =calidad_navegacion_movil,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Calidad de Navegación Móvil" # Titulo con variables.
 )
 ```
@@ -788,7 +863,7 @@ ggbetweenstats(
   x     =navegacion_movil_positivo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
 )+ coord_flip()
 ```
@@ -821,7 +896,7 @@ ggbetweenstats(
   x     =internet_fijo_negativo,
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )+ coord_flip()
 ```
@@ -835,13 +910,39 @@ ggbetweenstats(
 #Factor unificado de ARS vs Factor 1 Autoestima
 
 ```{r}
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$area_interperso)
 
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = area_interperso,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 ```
 
 #Factor unificado de ARS vs Factor 2 Autoestima
 
 ```{r}
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$area_personal_corporal)
 
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = area_personal_corporal,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+)
 ```
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
