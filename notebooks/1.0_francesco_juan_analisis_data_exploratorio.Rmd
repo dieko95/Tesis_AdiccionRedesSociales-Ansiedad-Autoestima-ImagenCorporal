@@ -112,7 +112,7 @@ vis_miss(original_df, sort_miss = TRUE)
   
       original_df %>% 
         ggplot(aes(y =obsesion_rrss)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
+        labs(x= "Encuestados", y= "Obsesión a las RRSS", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
         geom_boxplot()
   
   
@@ -120,14 +120,14 @@ vis_miss(original_df, sort_miss = TRUE)
   
       original_df %>% 
         ggplot(aes(y = falta_de_control_rrss)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 2 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
+        labs(x= "Encuestados", y= "Falta de Control RRSS", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
         geom_boxplot()
   
       #ARS fac 3 
   
       original_df %>% 
       ggplot(aes(y = uso_excesivo_rrss)) +
-       labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
+       labs(x= "Encuestados", y= "Uso Excesivo RRSS", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
       geom_boxplot()
   
 
@@ -391,9 +391,166 @@ ggbetweenstats(
 
 ##### En referencia a la frecuencia de la ocupación de la muestra, 52,9% presenta trabajo y 47,1% no.
 
+#top 1 redes sociales
+
+```{r}
+original_df %>% 
+  count(top1_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=top1_rrss, y= n, fill = top1_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Red Social en el Top 1", y= "Frecuencia", title = "Top 1 Red Social", subtitle = "Preferencia de Red Social en el top 1") +
+    guides(fill = guide_legend(title = "Redes Sociales"),
+           colour = guide_legend(title = "Redes Sociales")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$top1_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = top1_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según top 1 de Redes Sociales" # Titulo con variables.
+)
+```
+
+#top 2 redes sociales
+
+```{r}
+original_df %>% 
+  count(top2_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=top2_rrss, y= n, fill = top2_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Red Social en el Top 2", y= "Frecuencia", title = "Top 2 Red Social", subtitle = "Preferencia de Red Social en el top 2") +
+    guides(fill = guide_legend(title = "Redes Sociales"),
+           colour = guide_legend(title = "Redes Sociales")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$top2_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = top2_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según top 2 de Redes Sociales" # Titulo con variables.
+)
+```
+
+#top 3 redes sociales
+
+```{r}
+original_df %>% 
+  count(top3_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=top3_rrss, y= n, fill = top3_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Red Social en el Top 3", y= "Frecuencia", title = "Top 3 Red Social", subtitle = "Preferencia de Red Social en el top 3") +
+    guides(fill = guide_legend(title = "Redes Sociales"),
+           colour = guide_legend(title = "Redes Sociales")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$top3_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = top3_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según top 3 de Redes Sociales" # Titulo con variables.
+)
+```
+
+#top 4 redes sociales
+
+```{r}
+original_df %>% 
+  count(top4_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=top4_rrss, y= n, fill = top4_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Red Social en el Top 4", y= "Frecuencia", title = "Top 4 Red Social", subtitle = "Preferencia de Red Social en el top 4") +
+    guides(fill = guide_legend(title = "Redes Sociales"),
+           colour = guide_legend(title = "Redes Sociales")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$top4_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = top4_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según top 4 de Redes Sociales" # Titulo con variables.
+)
+```
+
+#top 5 redes sociales
+
+```{r}
+original_df %>% 
+  count(top5_rrss) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=top5_rrss, y= n, fill = top5_rrss, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Red Social en el Top 5", y= "Frecuencia", title = "Top 5 Red Social", subtitle = "Preferencia de Red Social en el top 5") +
+    guides(fill = guide_legend(title = "Redes Sociales"),
+           colour = guide_legend(title = "Redes Sociales")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$top5_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = top5_rrss,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según top 5 de Redes Sociales" # Titulo con variables.
+)
+```
+
+# 
+
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
-### VARIABLES DESCRIPTIVAS
+### VARIABLE CONTROL
 
 **#Factor unificado ARS vs Tipo de Dispositivo**
 
@@ -429,10 +586,6 @@ ggbetweenstats(
 ```
 
 ##### En cuanto a la preferencia de dispositivos más usados para el consumo de redes sociales, tenemos en primer lugar al celular con 68,58%, luego en segundo lugar con 21,46% se encuentra el celular y laptop. El resto de las opciones representan el 9,96%, distribuyendose casi equitativamente entre tablet, computadora fija y laptop.
-
-# ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
-
-### Variable Control Internet Fijo
 
 **#Factor unificado ARS vs Internet Fijo**
 
