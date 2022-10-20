@@ -50,7 +50,7 @@ View(original_df)
 original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
 
   #Sumar Factores de ARS y creacion de nueva col
-original_df <- mutate(original_df, factor_total_ars = original_df$fac1_ars + original_df$fac2_ars + original_df$fac3_ars)
+original_df <- mutate(original_df, factor_total_ars = original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss)
 
 ```
 
@@ -111,7 +111,7 @@ vis_miss(original_df, sort_miss = TRUE)
       #ARS fac 1
   
       original_df %>% 
-        ggplot(aes(y =fac1_ars)) +
+        ggplot(aes(y =obsesion_rrss)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 1 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 1") +
         geom_boxplot()
   
@@ -119,14 +119,14 @@ vis_miss(original_df, sort_miss = TRUE)
       #ARS fac 2
   
       original_df %>% 
-        ggplot(aes(y = fac2_ars)) +
+        ggplot(aes(y = falta_de_control_rrss)) +
         labs(x= "Encuestados", y= "Frecuencia de Factor 2 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 2") +
         geom_boxplot()
   
       #ARS fac 3 
   
       original_df %>% 
-      ggplot(aes(y = fac3_ars)) +
+      ggplot(aes(y = uso_excesivo_rrss)) +
        labs(x= "Encuestados", y= "Frecuencia de Factor 3 ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor 3") +
       geom_boxplot()
   
@@ -158,20 +158,20 @@ vis_miss(original_df, sort_miss = TRUE)
 ```{r}
       #BSQ fac 1
       original_df %>% 
-      ggplot(aes(y =fac1_bsq)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 1 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 1") +
+      ggplot(aes(y =insatisfaccion_imagen_corp)) +
+        labs(x= "Encuestados", y= "Insatifacción en la Imagen Corporal", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 1") +
       geom_boxplot()
  
       #BSQ fac 2
       original_df %>% 
-      ggplot(aes(y =fac2_bsq)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 2 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 2") +
+      ggplot(aes(y =preocupacion_peso_conductas_asociadas)) +
+        labs(x= "Encuestados", y= "Preocupación por el peso y conductas asociadas", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 2") +
       geom_boxplot()
       
       #BSQ fac 3
       original_df %>% 
-        ggplot(aes(y =fac3_bsq)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor 3 BSQ", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 3") +
+        ggplot(aes(y =factores_antiesteticos_emociones)) +
+        labs(x= "Encuestados", y= "Factores antiestéticos y emociones asociadas", title = "Body Shape Questionnaire", subtitle = "Frecuencia del Factor 3") +
         geom_boxplot()
 ```
 
@@ -220,7 +220,7 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Factor Unificado ARS Según Municipio" # Titulo con variables.
 )
 
 ```
@@ -254,7 +254,7 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Factor Unificado ARS Según Sexo" # Titulo con variables.
 )
 
 ```
@@ -290,7 +290,7 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Factor Unificado ARS Según Edad" # Titulo con variables.
 )
 ```
 
@@ -323,7 +323,7 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Factor Unificado ARS Según Nivel Educativo" # Titulo con variables.
 )
 ```
 
@@ -354,9 +354,42 @@ ggbetweenstats(
   y     = factor_total_ars,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Factor Unificado ARS Según Tipo de Universiad" # Titulo con variables.
 )
 ```
+
+**#Ocupación**
+
+```{r}
+original_df %>% 
+  count(trabajo_actual) %>% # Contar sujetos por municipio
+  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
+  ggplot(aes(x=trabajo_actual, y= n, fill = trabajo_actual, label = scales::percent(pct))) +
+    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
+    labs(x= "Ocupación", y= "Frecuencia", title = "Ocupación", subtitle = "Frecuencia de ocupación de los encuestados") +
+    guides(fill = guide_legend(title = "Ocupación"),
+           colour = guide_legend(title = "Ocupación")) + 
+    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
+              vjust = -0.5,    # Mover al tope de las barras
+              size = 3)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$factor_total_ars, original_df$trabajo_actual)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$factor_total_ars)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = trabajo_actual,
+  y     = factor_total_ars,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
+)
+```
+
+##### En referencia a la frecuencia de la ocupación de la muestra, 52,9% presenta trabajo y 47,1% no.
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -396,39 +429,6 @@ ggbetweenstats(
 ```
 
 ##### En cuanto a la preferencia de dispositivos más usados para el consumo de redes sociales, tenemos en primer lugar al celular con 68,58%, luego en segundo lugar con 21,46% se encuentra el celular y laptop. El resto de las opciones representan el 9,96%, distribuyendose casi equitativamente entre tablet, computadora fija y laptop.
-
-**#Factor unificado ARS vs Ocupación**
-
-```{r}
-original_df %>% 
-  count(trabajo_actual) %>% # Contar sujetos por municipio
-  mutate(pct = prop.table(n)) %>% # Crear Porcentajes
-  ggplot(aes(x=trabajo_actual, y= n, fill = trabajo_actual, label = scales::percent(pct))) +
-    geom_col(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-    labs(x= "Ocupación", y= "Frecuencia", title = "Ocupación", subtitle = "Frecuencia de ocupación de los encuestados") +
-    guides(fill = guide_legend(title = "Ocupación"),
-           colour = guide_legend(title = "Ocupación")) + 
-    geom_text(position = position_dodge(width = .9),    # Mover al centro de las barras
-              vjust = -0.5,    # Mover al tope de las barras
-              size = 3)
-
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$trabajo_actual)
-
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = trabajo_actual,
-  y     = factor_total_ars,
-  outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
-)
-```
-
-##### En referencia a la frecuencia de la ocupación de la muestra, 52,9% presenta trabajo y 47,1% no.
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
@@ -977,11 +977,29 @@ original_df%>%
 
 ```{r}
 #Creamos la regresion 
-
-model_lr <- lm(original_df$factor_total_ars ~ original_df$area_interperso + original_df$area_personal_corporal + original_df$fac1_bsq + original_df$fac2_bsq + original_df$fac3_bsq, data = original_df)
+model_lr <- lm(original_df$factor_total_ars ~ original_df$area_interperso + original_df$area_personal_corporal + original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones, data = original_df)
 
 summary(model_lr)
 
+```
+
+### Variables principales (AUTO \~ ARS, BSQ)
+
+```{r}
+
+original_df <- mutate(original_df, factor_total_auto = original_df$area_interperso + original_df$area_personal_corporal)
+
+model_lr <- lm(original_df$factor_total_auto ~ original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss + original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones, data = original_df)
+
+summary(model_lr)
+```
+
+```{r}
+original_df <- mutate(original_df, factor_total_bsq = original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones)
+
+model_lr <- lm(original_df$factor_total_bsq ~ original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss + original_df$area_interperso + original_df$area_personal_corporal, data = original_df)
+
+summary(model_lr)
 ```
 
 ```{r}
