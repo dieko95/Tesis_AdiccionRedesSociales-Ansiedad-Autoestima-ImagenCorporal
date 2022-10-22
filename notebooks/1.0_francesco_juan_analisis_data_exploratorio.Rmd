@@ -50,7 +50,7 @@ View(original_df)
 original_df[,3:27] <- lapply(original_df[,3:27], as.factor)
 
   #Sumar Factores de ARS y creacion de nueva col
-original_df <- mutate(original_df, factor_total_ars = original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss)
+original_df <- mutate(original_df, adiccion_rrss = original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss)
 
 ```
 
@@ -85,6 +85,8 @@ original_df <- mutate(original_df, factor_total_ars = original_df$obsesion_rrss 
   
 ```
 
+# Análisis Exploratorio
+
 **#Valores nulos**
 
 ```{r}
@@ -94,7 +96,7 @@ vis_miss(original_df, sort_miss = TRUE)
   
 ```
 
-# OUTLIERS
+### OUTLIERS
 
 **#Factores adicción a las redes sociales**
 
@@ -102,10 +104,10 @@ vis_miss(original_df, sort_miss = TRUE)
   
     #ADICCION A LAS REDES SOCIALES
 
-      #ARS Factor Total
+      #ARS 
        original_df %>% 
-        ggplot(aes(y =factor_total_ars)) +
-        labs(x= "Encuestados", y= "Frecuencia de Factor Unificado ars", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor Unificado") +
+        ggplot(aes(y =adiccion_rrss)) +
+        labs(x= "Encuestados", y= "Adición a las Redes Sociales", title = "Adicción Redes Sociales", subtitle = "Frecuencia del Factor Unificado") +
         geom_boxplot()
   
       #ARS fac 1
@@ -141,13 +143,13 @@ vis_miss(original_df, sort_miss = TRUE)
       #Auto fac 1
       original_df %>% 
       ggplot(aes(y =area_interperso)) +
-        labs(x= "Encuestados", y= "Frecuencia del Área Interpersonal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del área interpersonal de la Autoestima") +
+        labs(x= "Encuestados", y= "Área Interpersonal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del área interpersonal de la Autoestima") +
       geom_boxplot()
       
       #Auto fac 2
       original_df %>% 
       ggplot(aes(y =area_personal_corporal)) +
-        labs(x= "Encuestados", y= "Frecuencia del Área Personal/Corporal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del Área personal y corporal de la Autoestima") +
+        labs(x= "Encuestados", y= "Área Personal/Corporal", title = "Autoestima", subtitle = "Frecuencia de los puntajes del Área personal y corporal de la Autoestima") +
       geom_boxplot()
 ```
 
@@ -209,18 +211,18 @@ original_df %>%
               size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$municipio)
+LeveneTest(original_df$adiccion_rrss, original_df$municipio)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = municipio,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Municipio" # Titulo con variables.
+  title = "Adicción a las Redes Sociales Según Municipio" # Titulo con variables.
 )
 
 ```
@@ -243,18 +245,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$sexo)
+LeveneTest(original_df$adiccion_rrss, original_df$sexo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = sexo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Sexo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Sexo" # Titulo con variables.
 )
 
 ```
@@ -279,18 +281,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$edad)
+LeveneTest(original_df$adiccion_rrss, original_df$edad)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = edad,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Edad" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Edad" # Titulo con variables.
 )
 ```
 
@@ -312,18 +314,18 @@ original_df %>%
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$educación)
+LeveneTest(original_df$adiccion_rrss, original_df$educación)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = educación,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Nivel Educativo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Nivel Educativo" # Titulo con variables.
 )
 ```
 
@@ -343,18 +345,18 @@ original_df %>%
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$tipo_universidad)
+LeveneTest(original_df$adiccion_rrss, original_df$tipo_universidad)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = tipo_universidad,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Tipo de Universiad" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Tipo de Universiad" # Titulo con variables.
 )
 ```
 
@@ -374,18 +376,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$trabajo_actual)
+LeveneTest(original_df$adiccion_rrss, original_df$trabajo_actual)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = trabajo_actual,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según Ocupación" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Ocupación" # Titulo con variables.
 )
 ```
 
@@ -407,18 +409,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$top1_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$top1_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = top1_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según top 1 de Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según top 1 de Redes Sociales" # Titulo con variables.
 )
 ```
 
@@ -438,18 +440,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$top2_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$top2_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = top2_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según top 2 de Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según top 2 de Redes Sociales" # Titulo con variables.
 )
 ```
 
@@ -469,18 +471,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$top3_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$top3_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = top3_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según top 3 de Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según top 3 de Redes Sociales" # Titulo con variables.
 )
 ```
 
@@ -500,18 +502,18 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$top4_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$top4_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = top4_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según top 4 de Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según top 4 de Redes Sociales" # Titulo con variables.
 )
 ```
 
@@ -531,28 +533,26 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$top5_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$top5_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = top5_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado de ARS Según top 5 de Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según top 5 de Redes Sociales" # Titulo con variables.
 )
 ```
-
-# 
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
 ### VARIABLE CONTROL
 
-**#Factor unificado ARS vs Tipo de Dispositivo**
+**#Adicción a las Redes Sociales vs Tipo de Dispositivo**
 
 ```{r}
 #Tipo de dispositivo
@@ -570,24 +570,24 @@ original_df %>%
               size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$tipo_dispositivo_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$tipo_dispositivo_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = tipo_dispositivo_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Tipo de Dispositivo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Tipo de Dispositivo" # Titulo con variables.
 ) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
 ```
 
 ##### En cuanto a la preferencia de dispositivos más usados para el consumo de redes sociales, tenemos en primer lugar al celular con 68,58%, luego en segundo lugar con 21,46% se encuentra el celular y laptop. El resto de las opciones representan el 9,96%, distribuyendose casi equitativamente entre tablet, computadora fija y laptop.
 
-**#Factor unificado ARS vs Internet Fijo**
+**#Adicción a las Redes Sociales vs Internet Fijo**
 
 ```{r}
 original_df %>% 
@@ -603,24 +603,24 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$internet_fijo)
+LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = internet_fijo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Internet Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Internet Fijo" # Titulo con variables.
 )
 ```
 
 ##### 97% de la muestra indica tener internet fijo y 3% indica no tenerlo.
 
-**#Factor unificado ARS vs Calidad de Conectividad**
+**#Adicción a las Redes Sociales vs Calidad de Conectividad**
 
 ```{r}
 original_df %>% 
@@ -636,24 +636,24 @@ original_df %>%
               size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 5)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$calidad_internet_fijo)
+LeveneTest(original_df$adiccion_rrss, original_df$calidad_internet_fijo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = calidad_internet_fijo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Calidad de Internet Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Calidad de Internet Fijo" # Titulo con variables.
 )
 ```
 
 ##### 32,95% de la muestra califica su internet como regular hacia buena, 27,20% la califica como buena, 14,94% la califica como muy buena, 14,56% regular hacia mala, 3,45% la califica como mala, 3,45% muy mala y 3,45% no presenta el servicio.
 
-**#Factor unificado ARS vs Fallas de Servicio**
+**#Adicción a las Redes Sociales vs Fallas de Servicio**
 
 ```{r}
 original_df %>% 
@@ -669,24 +669,24 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$fallas_servicio)
+LeveneTest(original_df$adiccion_rrss, original_df$fallas_servicio)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = fallas_servicio,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Fallas del Servicio" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Fallas del Servicio" # Titulo con variables.
 )
 ```
 
 ##### 65,9% expresa no presentar fallas del servicio fijo, 24,9% expresa presentar fallas todos los días, 5,7% dice no presentar fallas nunca y 3,4% no presenta servicio.
 
-**#Factor unificado ARS vs Percepción Positiva del Servicio**
+**#Adicción a las Redes Sociales vs Percepción Positiva del Servicio**
 
 ```{r}
 original_df %>% 
@@ -702,24 +702,24 @@ original_df %>%
               size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_positivo)
+LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo_positivo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = internet_fijo_positivo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Percepción Positiva del Servicio fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Percepción Positiva del Servicio fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
 
 ##### 24,1% percibe positivamente el servicio por que la navegación es rápida. 21,8% porque siempre presenta el servicio. 18,4% porque el servicio es barato. 16,5% cree que es positivo por otro motivo. 9,6% porque siempre se atienden sus reclamos. 6,1% porque nunca se le cae el internet, 3,4% no presenta servicio.
 
-**#Factor unificado ARS vs s Percepción Negativa del Servicio**
+**#Adicción a las Redes Sociales vs s Percepción Negativa del Servicio**
 
 ```{r}
 original_df %>% 
@@ -735,24 +735,24 @@ original_df %>%
               size = 3) + coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
+LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo_negativo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = internet_fijo_negativo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
 ```
 
 ##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
 
-**#Factor unificado ARS vs Reestablecimiento del Servicio de Internet**
+**#Adicción a las Redes Sociales vs Reestablecimiento del Servicio de Internet**
 
 ```{r}
 original_df %>% 
@@ -768,24 +768,24 @@ original_df %>%
               size = 3)+ (theme(axis.text.x = element_text(angle = 90, vjust=0.5, size = 8)))
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$fallo_internet_reestablecimiento)
+LeveneTest(original_df$adiccion_rrss, original_df$fallo_internet_reestablecimiento)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = fallo_internet_reestablecimiento,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor total ARS Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
 
 ##### 66,28% expresa que el servicio se restablece el mismo día. 18,01% tardan de 1 a 2 días. 6,13% entre 2 y 4 días. 6,13% indica que tardan más de 4 días y 3,45% no presentan servicio.
 
-**#Factor unificado ARS vs Tipo de Empresa**
+**#Adicción a las Redes Sociales vs Tipo de Empresa**
 
 ```{r}
 original_df %>% 
@@ -801,24 +801,24 @@ original_df %>%
               size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$tipo_empresa_internet_fijo)
+LeveneTest(original_df$adiccion_rrss, original_df$tipo_empresa_internet_fijo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = tipo_empresa_internet_fijo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Tipo de Empresa" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Tipo de Empresa" # Titulo con variables.
 )
 ```
 
 ##### 57,5% dice tener servicio de internet fijo por un proveedor privado. 38,7% por un proveedor público, 3,4% no presenta servicio fijo
 
-**#Factor unificado ARS vs Cambio de Proveedor**
+**#Adicción a las Redes Sociales vs Cambio de Proveedor**
 
 ```{r}
 original_df %>% 
@@ -835,24 +835,24 @@ original_df %>%
 
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$cambio_proveedor_reciente)
+LeveneTest(original_df$adiccion_rrss, original_df$cambio_proveedor_reciente)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = cambio_proveedor_reciente,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Cambio de Proveedor Recientemente" # Titulo con variables.
 )
 ```
 
 ##### 65% dice no haber cambiado el proveedor de servicio fijo, 31% dice si haber cambiado recientemente el proveedor y 3,4% no presenta el servicio.
 
-**#Factor unificado ARS vs Medida Secundaria**
+**#Adicción a las Redes Sociales vs Medida Secundaria**
 
 ```{r}
 original_df %>% 
@@ -869,24 +869,24 @@ original_df %>%
 
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$medida_secundaria_fallo_internet_fijo)
+LeveneTest(original_df$adiccion_rrss, original_df$medida_secundaria_fallo_internet_fijo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     = medida_secundaria_fallo_internet_fijo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
 ```
 
 ##### 59% dice que la medida alternativa qye más usan frente a la caida del servicio fijo son los datos móviles. 14,94% internet satelital. 11,11% dispositivos de banda ancha. 6,13% se van a casa de un conocido, 3,4% no presenta el servicio. 3,07% usa wifi del trabajo o local. 19,2% usa wifi público
 
-**#Factor unificado ARS vs Pago de Internet**
+**#Adicción a las Redes Sociales vs Pago de Internet**
 
 ```{r}
 original_df %>% 
@@ -903,18 +903,18 @@ original_df %>%
 
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$pago_internet_dolares)
+LeveneTest(original_df$adiccion_rrss, original_df$pago_internet_dolares)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     =pago_internet_dolares,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
 )
 ```
 
@@ -924,7 +924,7 @@ ggbetweenstats(
 
 ### Variable Control Internet Móvil
 
-**#Factor unificado ARS vs Acceso rrss Via Móvil**
+**#Adicción a las Redes Sociales vs Acceso rrss Via Móvil**
 
 ```{r}
 original_df %>% 
@@ -940,24 +940,24 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$acceso_celular_rrss)
+LeveneTest(original_df$adiccion_rrss, original_df$acceso_celular_rrss)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     =acceso_celular_rrss,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Acceso desde Aparato Móvil a Redes Sociales" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Acceso desde Aparato Móvil a Redes Sociales" # Titulo con variables.
 )
 ```
 
 ##### El 95,8% presenta acceso a redes sociales vía movil.
 
-**#Factor unificado ARS vs de Calidad de Conexión Móvil**
+**#Adicción a las Redes Sociales vs de Calidad de Conexión Móvil**
 
 ```{r}
 original_df %>% 
@@ -973,24 +973,24 @@ original_df %>%
               size = 3)
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$calidad_navegacion_movil)
+LeveneTest(original_df$adiccion_rrss, original_df$calidad_navegacion_movil)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     =calidad_navegacion_movil,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Calidad de Navegación Móvil" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Calidad de Navegación Móvil" # Titulo con variables.
 )
 ```
 
 ##### 51,3% cree que la calidad del servicio movil se mantiene. 26,4% expresa que ha mejorado. 18,8% dice que ha empeorado.
 
-**#Factor unificado ARS vs de Percepción Positiva**
+**#Adicción a las Redes Sociales vs de Percepción Positiva**
 
 ```{r}
 original_df %>% 
@@ -1006,24 +1006,24 @@ original_df %>%
               size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$navegacion_movil_positivo)
+LeveneTest(original_df$adiccion_rrss, original_df$navegacion_movil_positivo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     =navegacion_movil_positivo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
 )+ coord_flip()
 ```
 
 ##### 29,9% dice que la navegación movil es positiva porque puede navegar sin inconvenientes. 23% No lo considera positivo por ninguna razón anterior. 14,2% todo se descarga rápido, 12,3% los datos nunca se acaban, 10,7% siempre tiene señal movil. 6,5% por otro motivo.
 
-**#Factor unificado ARS vs de Percepción Negativa**
+**#Adicción a las Redes Sociales vs de Percepción Negativa**
 
 ```{r}
 original_df %>% 
@@ -1039,18 +1039,18 @@ original_df %>%
               size = 3)+ coord_flip()
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$internet_fijo_negativo)
+LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo_negativo)
 
 # Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
+shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
   data  = original_df,
   x     =internet_fijo_negativo,
-  y     = factor_total_ars,
+  y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor unificado ARS Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
+  title = "Adicción Redes Sociales Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )+ coord_flip()
 ```
 
@@ -1060,65 +1060,76 @@ ggbetweenstats(
 
 ### Variable Centrales - Autoestima
 
-#Factor unificado de ARS vs Factor 1 Autoestima
+#Adicción a las Redes Sociales vs área interpersonal
 
 ```{r}
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$area_interperso)
+run_quantitative_bivariate_test <-
+  function(x_vector,
+           y_vector,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(x_vector)
+    y_vector_pvalue <- shapiro.test(y_vector)
+    
+    if (y_vector_pvalue$p.value < 0.05) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df$adiccion_rrss,
+               original_df$area_interperso,
+               method = method)
+    
+    
+    print(x_vector_pvalue)
+    print(y_vector_pvalue)
+    
+    original_df %>%
+      ggplot(aes(x = area_interperso, y = adiccion_rrss)) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title =
+             title)
+    
+  }
 
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = area_interperso,
-  y     = factor_total_ars,
-  outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
+run_quantitative_bivariate_test(
+  x_vector = original_df$area_interperso,
+  y_vector = original_df$adiccion_rrss,
+  x_label = "Puntaje Autoestima Factor Area Interpersonal",
+  y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
+  title = "Relación entre Puntaje Total Constructo Adicción a las Redes Sociales y Factor Area Interpersonal"
 )
 ```
 
-#Factor unificado de ARS vs Factor 2 Autoestima
+#Adicción a las Redes Sociales vs Factor 2 Autoestima
 
 ```{r}
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$factor_total_ars, original_df$area_personal_corporal)
 
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$factor_total_ars)
 
-ggbetweenstats(
-  data  = original_df,
-  x     = area_personal_corporal,
-  y     = factor_total_ars,
-  outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Factor Unificado ARS Según Cambio de Proveedor Recientemente" # Titulo con variables.
-)
 ```
 
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
 ### Variable Centrales - Body Shape Questionnaire (BSQ)
 
-#Factor unificado de ARS vs Factor 1 BSQ
+#Adicción a las Redes Sociales vs Factor 1 BSQ
 
 ```{r}
-original_df%>%
-  ggplot(aes(fac1_bsq, fill = fac1_bsq)) +
-  geom_histogram(binwidth = 0.5, stat = "count", colour = "black", linetype = 1) + 
-  labs(x= "Factor 1 BSQ", y= "Frecuencia", title = "Factor 1 BSQ", subtitle = " Puntajes del Factor 1 BSQ")
+
 
 ```
 
-#Factor unificado de ARS vs Factor 2 BSQ
+#Adicción a las Redes Sociales vs Factor 2 BSQ
 
 ```{r}
 
 ```
 
-#Factor unificado de ARS vs Factor 3 BSQ
+#Adicción a las Redes Sociales vs Factor 3 BSQ
 
 ```{r}
 
