@@ -1155,23 +1155,142 @@ run_quantitative_bivariate_test(
 
 ### Variable Centrales - Body Shape Questionnaire (BSQ)
 
-#Adicción a las Redes Sociales vs Factor 1 BSQ
+#Adicción a las Redes Sociales vs Factor insatifacción con la imagen corporal
 
 ```{r}
+run_quantitative_bivariate_test <-
+  function(x_vector,
+           y_vector,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(x_vector)
+    y_vector_pvalue <- shapiro.test(y_vector)
+    
+    if (y_vector_pvalue$p.value < 0.05) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df$adiccion_rrss,
+               original_df$insatisfaccion_imagen_corp,
+               method = method)
+    
+    
+    print(x_vector_pvalue)
+    print(y_vector_pvalue)
+    
+    original_df %>%
+      ggplot(aes(x = insatisfaccion_imagen_corp, y = adiccion_rrss)) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title =
+             title)
+    
+  }
 
+run_quantitative_bivariate_test(
+  x_vector = original_df$insatisfaccion_imagen_corp,
+  y_vector = original_df$adiccion_rrss,
+  x_label = "Puntaje BSQ Factor Insatisfacción en la imagen corporal",
+  y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
+  title = "Relación entre Constructo Adicción a las Redes Sociales y Factor Insatisfacción de la imagen corporal"
+)
 
 ```
 
-#Adicción a las Redes Sociales vs Factor 2 BSQ
+#Adicción a las Redes Sociales vs Factor preocupación por el peso y conductas asociadas
 
 ```{r}
+run_quantitative_bivariate_test <-
+  function(x_vector,
+           y_vector,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(x_vector)
+    y_vector_pvalue <- shapiro.test(y_vector)
+    
+    if (y_vector_pvalue$p.value < 0.05) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df$adiccion_rrss,
+               original_df$preocupacion_peso_conductas_asociadas,
+               method = method)
+    
+    
+    print(x_vector_pvalue)
+    print(y_vector_pvalue)
+    
+    original_df %>%
+      ggplot(aes(x = preocupacion_peso_conductas_asociadas, y = adiccion_rrss)) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title =
+             title)
+    
+  }
+
+run_quantitative_bivariate_test(
+  x_vector = original_df$preocupacion_peso_conductas_asociadas,
+  y_vector = original_df$adiccion_rrss,
+  x_label = "Puntaje BSQ Factor Preocupación por el peso y conductas asociadas",
+  y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
+  title = "Relación entre Constructo Adicción a las Redes Sociales y Factor Preocupación por el peso y coductas asociadas"
+)
+
 
 ```
 
 #Adicción a las Redes Sociales vs Factor 3 BSQ
 
 ```{r}
+run_quantitative_bivariate_test <-
+  function(x_vector,
+           y_vector,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(x_vector)
+    y_vector_pvalue <- shapiro.test(y_vector)
+    
+    if (y_vector_pvalue$p.value < 0.05) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df$adiccion_rrss,
+               original_df$factores_antiesteticos_emociones,
+               method = method)
+    
+    
+    print(x_vector_pvalue)
+    print(y_vector_pvalue)
+    
+    original_df %>%
+      ggplot(aes(x = factores_antiesteticos_emociones, y = adiccion_rrss)) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title =
+             title)
+    
+  }
 
+run_quantitative_bivariate_test(
+  x_vector = original_df$factores_antiesteticos_emociones,
+  y_vector = original_df$adiccion_rrss,
+  x_label = "Puntaje BSQ Factores Antiestéticos y emocionales",
+  y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
+  title = "Relación entre Constructo Adicción a las Redes Sociales y Factores Antiestéticos y emocionales"
+)
 ```
 
 # REGRESIÓN LINEAL
