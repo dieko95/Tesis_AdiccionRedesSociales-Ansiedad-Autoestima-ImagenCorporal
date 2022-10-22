@@ -1105,10 +1105,49 @@ run_quantitative_bivariate_test(
 )
 ```
 
-#Adicción a las Redes Sociales vs Factor 2 Autoestima
+#Adicción a las Redes Sociales vs área corporal/personal
 
 ```{r}
+run_quantitative_bivariate_test <-
+  function(x_vector,
+           y_vector,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(x_vector)
+    y_vector_pvalue <- shapiro.test(y_vector)
+    
+    if (y_vector_pvalue$p.value < 0.05) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df$adiccion_rrss,
+               original_df$area_personal_corporal,
+               method = method)
+    
+    
+    print(x_vector_pvalue)
+    print(y_vector_pvalue)
+    
+    original_df %>%
+      ggplot(aes(x = area_personal_corporal, y = adiccion_rrss)) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title =
+             title)
+    
+  }
 
+run_quantitative_bivariate_test(
+  x_vector = original_df$area_personal_corporal,
+  y_vector = original_df$adiccion_rrss,
+  x_label = "Puntaje Autoestima Factor Area Interpersonal",
+  y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
+  title = "Relación entre Constructo Adicción a las Redes Sociales y Factor Área Interpersonal"
+)
 
 ```
 
@@ -1151,7 +1190,7 @@ summary(model_lr)
 
 ```{r}
 
-original_df <- mutate(original_df, factor_total_auto = original_df$area_interperso + original_df$area_personal_corporal)
+original_df <- mutate(original_df, autoestima = original_df$area_interperso + original_df$area_personal_corporal)
 
 model_lr <- lm(original_df$factor_total_auto ~ original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss + original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones, data = original_df)
 
@@ -1159,7 +1198,7 @@ summary(model_lr)
 ```
 
 ```{r}
-original_df <- mutate(original_df, factor_total_bsq = original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones)
+original_df <- mutate(original_df, bsq = original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones)
 
 model_lr <- lm(original_df$factor_total_bsq ~ original_df$obsesion_rrss + original_df$falta_de_control_rrss + original_df$uso_excesivo_rrss + original_df$area_interperso + original_df$area_personal_corporal, data = original_df)
 
