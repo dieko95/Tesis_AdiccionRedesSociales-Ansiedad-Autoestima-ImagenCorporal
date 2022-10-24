@@ -210,6 +210,9 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
+
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$municipio)
 
@@ -225,6 +228,52 @@ ggbetweenstats(
   title = "Adicción a las Redes Sociales Según Municipio" # Titulo con variables.
 )
 
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$municipio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = municipio,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según municipio" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$municipio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = municipio,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según municipio" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$municipio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = municipio,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según municipio" # Titulo con variables.
+)
 ```
 
 **#Sexo**
@@ -244,6 +293,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$sexo)
 
@@ -259,6 +310,52 @@ ggbetweenstats(
   title = "Adicción Redes Sociales Según Sexo" # Titulo con variables.
 )
 
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$sexo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = sexo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según Sexo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$sexo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = sexo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según Sexo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$sexo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = sexo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según Sexo" # Titulo con variables.
+)
 ```
 
 ##### En referencia al la frecuencia de identificación de sexo de los ecuestados, 59% se identificó como Femenino, 41% como Masculino y menos del 1% como No binario.
@@ -280,6 +377,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$edad)
 
@@ -293,6 +392,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Edad" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$edad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = edad,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según edad" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$edad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = edad,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según edad" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$edad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = edad,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según edad" # Titulo con variables.
 )
 ```
 
@@ -313,6 +459,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$educación)
 
@@ -326,6 +474,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Nivel Educativo" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$educación)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = educación,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según Nivel Educativo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$educación)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = educación,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según Nivel Educativo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$educación)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = educación,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según Nivel Educativo" # Titulo con variables.
 )
 ```
 
@@ -344,6 +539,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$tipo_universidad)
 
@@ -357,6 +554,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Tipo de Universiad" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$tipo_universidad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_universidad,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según Tipo de Universidad" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$tipo_universidad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_universidad,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según Tipo de Universidad" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$tipo_universidad)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_universidad,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según Tipo de Universidad" # Titulo con variables.
 )
 ```
 
@@ -375,6 +619,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$trabajo_actual)
 
@@ -388,6 +634,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Ocupación" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$trabajo_actual)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = trabajo_actual,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según el Trabajo Actual" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$trabajo_actual)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = trabajo_actual,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según el Trabajo Actual" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$trabajo_actual)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = trabajo_actual,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según el Trabajo Actual" # Titulo con variables.
 )
 ```
 
@@ -569,6 +862,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$tipo_dispositivo_rrss)
 
@@ -582,6 +877,55 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Tipo de Dispositivo" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
+
+
+#ANALISIS POR fACTORES DE ARS
+
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$tipo_dispositivo_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_dispositivo_rrss,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según el Tipo de dispositivo de uso" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$tipo_dispositivo_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_dispositivo_rrss,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según el Tipo de dispositivo de uso" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$tipo_dispositivo_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_dispositivo_rrss,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según el Tipo de dispositivo de uso" # Titulo con variables.
 ) + (theme(axis.text.x = element_text(angle = 20, vjust=0.5, size = 5)))
 ```
 
@@ -602,6 +946,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo)
 
@@ -614,7 +960,54 @@ ggbetweenstats(
   y     = adiccion_rrss,
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Adicción Redes Sociales Según Internet Fijo" # Titulo con variables.
+  title = "Adicción Redes Sociales Según el servicio fijo de internet" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según el servicio fijo de internet" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según el servicio fijo de internet" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según el servicio fijo de internet" # Titulo con variables.
 )
 ```
 
@@ -635,6 +1028,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 5)))
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$calidad_internet_fijo)
 
@@ -648,6 +1043,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Calidad de Internet Fijo" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$calidad_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_internet_fijo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según Calidad de Internet Fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$calidad_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_internet_fijo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según Calidad de Internet Fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$calidad_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_internet_fijo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según Calidad de Internet Fijo" # Titulo con variables.
 )
 ```
 
@@ -668,6 +1110,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$fallas_servicio)
 
@@ -681,6 +1125,53 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Fallas del Servicio" # Titulo con variables.
+)
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$fallas_servicio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallas_servicio,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según falla del servicio fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$fallas_servicio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallas_servicio,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según falla del servicio fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$fallas_servicio)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallas_servicio,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según falla del servicio fijo" # Titulo con variables.
 )
 ```
 
@@ -701,6 +1192,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$internet_fijo_positivo)
 
@@ -715,6 +1208,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Percepción Positiva del Servicio fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$internet_fijo_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_positivo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según percepción positiva del servicio fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$internet_fijo_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_positivo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según percepción positiva del servicio fijo" # Titulo con variables.
+)
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$internet_fijo_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_positivo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según percepción positiva del servicio fijo" # Titulo con variables.
+)
 ```
 
 ##### 24,1% percibe positivamente el servicio por que la navegación es rápida. 21,8% porque siempre presenta el servicio. 18,4% porque el servicio es barato. 16,5% cree que es positivo por otro motivo. 9,6% porque siempre se atienden sus reclamos. 6,1% porque nunca se le cae el internet, 3,4% no presenta servicio.
@@ -748,6 +1288,54 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Percepción Negativa del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
+
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según percepción percepción negativa del servicio fijo" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según percepción percepción negativa del servicio fijo" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según percepción negativa del servicio fijo" # Titulo con variables.
+) + coord_flip()
 ```
 
 ##### 27,2% percibe negativamente el servicio por que la navegación es muy lenta. 18,39% por otro motivo. 16,09% porque el servicio es barato. 15,71% cree que es negativo porque la señal se cae a cada rato. 15,33% porque nunca atienden sus reclamos. 3,83% porque siempre se le cae el internet, 3,45% no presenta servicio.
@@ -767,6 +1355,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ (theme(axis.text.x = element_text(angle = 90, vjust=0.5, size = 8)))
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$fallo_internet_reestablecimiento)
 
@@ -781,6 +1371,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Reestablecimiento del Servicio Fijo" # Titulo con variables.
 )+ (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$fallo_internet_reestablecimiento)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallo_internet_reestablecimiento,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según fallo del servicio fijo" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$fallo_internet_reestablecimiento)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallo_internet_reestablecimiento,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según fallo del servicio fijo" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$fallo_internet_reestablecimiento)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = fallo_internet_reestablecimiento,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según fallo del servicio fijo" # Titulo con variables.
+) + (theme(axis.text.x = element_text(angle = 45, vjust=0.5, size = 8)))
 ```
 
 ##### 66,28% expresa que el servicio se restablece el mismo día. 18,01% tardan de 1 a 2 días. 6,13% entre 2 y 4 días. 6,13% indica que tardan más de 4 días y 3,45% no presentan servicio.
@@ -800,6 +1437,8 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)+ coord_flip()
 
+#ANALISIS POR CONSTRUCTO
+
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$tipo_empresa_internet_fijo)
 
@@ -814,6 +1453,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Tipo de Empresa" # Titulo con variables.
 )
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$tipo_empresa_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_empresa_internet_fijo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según tipo de empresa de servicio fijo" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$tipo_empresa_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_empresa_internet_fijo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según tipo de empresa de servicio fijo" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$tipo_empresa_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_empresa_internet_fijo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según tipo de empresa de servicio fijo" # Titulo con variables.
+) 
 ```
 
 ##### 57,5% dice tener servicio de internet fijo por un proveedor privado. 38,7% por un proveedor público, 3,4% no presenta servicio fijo
@@ -848,6 +1534,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Cambio de Proveedor Recientemente" # Titulo con variables.
 )
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$cambio_proveedor_reciente)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = cambio_proveedor_reciente,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según el cambio de proveedor" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$cambio_proveedor_reciente)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = tipo_empresa_internet_fijo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según el cambio de proveedor" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$cambio_proveedor_reciente)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = cambio_proveedor_reciente,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según tipo de empresa de servicio fijo" # Titulo con variables.
+) 
 ```
 
 ##### 65% dice no haber cambiado el proveedor de servicio fijo, 31% dice si haber cambiado recientemente el proveedor y 3,4% no presenta el servicio.
@@ -882,6 +1615,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Medida alternativa Frente a Fallas del Servicio Fijo" # Titulo con variables.
 )+ coord_flip()
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$medida_secundaria_fallo_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = medida_secundaria_fallo_internet_fijo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según opción secundaria para acceder a internet" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$medida_secundaria_fallo_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = medida_secundaria_fallo_internet_fijo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según opción secundaria para acceder a internet" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$medida_secundaria_fallo_internet_fijo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = medida_secundaria_fallo_internet_fijo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según opción secundaria para acceder a internet" # Titulo con variables.
+) + coord_flip()
 ```
 
 ##### 59% dice que la medida alternativa qye más usan frente a la caida del servicio fijo son los datos móviles. 14,94% internet satelital. 11,11% dispositivos de banda ancha. 6,13% se van a casa de un conocido, 3,4% no presenta el servicio. 3,07% usa wifi del trabajo o local. 19,2% usa wifi público
@@ -901,6 +1681,7 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
+#ANALISIS POR CONSTRUCTO
 
 # Igualdad de varianzas: si p > 0.05 supuesto se cumple
 LeveneTest(original_df$adiccion_rrss, original_df$pago_internet_dolares)
@@ -916,6 +1697,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Pago del Servicio Fijo en Dolares" # Titulo con variables.
 )
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$pago_internet_dolares)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = pago_internet_dolares,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según pago en dolares" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$pago_internet_dolares)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = pago_internet_dolares,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según pago en dolares" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$pago_internet_dolares)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = pago_internet_dolares,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según pago en dolares" # Titulo con variables.
+) 
 ```
 
 ##### 50,6% no paga su servicio fijo en divisas. 46% si paga en divisas. 3,4% no presenta servicio.
@@ -953,6 +1781,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Acceso desde Aparato Móvil a Redes Sociales" # Titulo con variables.
 )
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$acceso_celular_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = acceso_celular_rrss,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según acceso a RRSS vía Celular" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$acceso_celular_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = acceso_celular_rrss,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según acceso a RRSS vía Celular" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$acceso_celular_rrss)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = acceso_celular_rrss,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según acceso a RRSS vía Celular" # Titulo con variables.
+) 
 ```
 
 ##### El 95,8% presenta acceso a redes sociales vía movil.
@@ -986,6 +1861,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Calidad de Navegación Móvil" # Titulo con variables.
 )
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$calidad_navegacion_movil)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_navegacion_movil,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según la calidad de navegación móvil" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$calidad_navegacion_movil)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_navegacion_movil,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según la calidad de navegación móvil" # Titulo con variables.
+) 
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$calidad_navegacion_movil)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = calidad_navegacion_movil,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según la calidad de navegación móvil" # Titulo con variables.
+) 
 ```
 
 ##### 51,3% cree que la calidad del servicio movil se mantiene. 26,4% expresa que ha mejorado. 18,8% dice que ha empeorado.
@@ -1018,7 +1940,54 @@ ggbetweenstats(
   outlier.tagging  = TRUE,
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Percepción Positiva de Navegación Móvil" # Titulo con variables.
-)+ coord_flip()
+) + coord_flip()
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$navegacion_movil_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = navegacion_movil_positivo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según la percepción positiva de la navegación móvil" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$navegacion_movil_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = navegacion_movil_positivo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Según la percepción positiva de la navegación móvil" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$navegacion_movil_positivo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = navegacion_movil_positivo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según la percepción positiva de la navegación móvil" # Titulo con variables.
+) + coord_flip()
 ```
 
 ##### 29,9% dice que la navegación movil es positiva porque puede navegar sin inconvenientes. 23% No lo considera positivo por ninguna razón anterior. 14,2% todo se descarga rápido, 12,3% los datos nunca se acaban, 10,7% siempre tiene señal movil. 6,5% por otro motivo.
@@ -1052,6 +2021,53 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
 )+ coord_flip()
+
+#ANALISIS POR FACTORES DE ARS
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$obsesion_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$obsesion_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = obsesion_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Obesión de las Redes Sociales Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$falta_de_control_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$falta_de_control_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = falta_de_control_rrss,
+  outlier.tagging  = TRUE,
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Falta de control de las Redes Sociales Percepción Negativa de la Navegación Móvil" # Titulo con variables.
+) + coord_flip()
+
+# Igualdad de varianzas: si p > 0.05 supuesto se cumple
+LeveneTest(original_df$uso_excesivo_rrss, original_df$internet_fijo_negativo)
+
+# Normalidad de VD: si p > 0.05 supuesto se cumple
+shapiro.test(original_df$uso_excesivo_rrss)
+
+ggbetweenstats(
+  data  = original_df,
+  x     = internet_fijo_negativo,
+  y     = uso_excesivo_rrss,
+  outlier.tagging  = TRUE,
+  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  title = "Uso excesivo de las redes sociales Según Percepción Negativa de la Navegación Móvil" # Titulo con variables.
+) + coord_flip()
 ```
 
 ##### 34,9% lo considera negativo porque los megas siempre se acaban. 21,5% los megas son muy caros. 13,4% navega muy lento. 12,3% no lo considera negativo por ningún motivo expuesto. 9,6% no tiene señal. 5% por otro motivo.
@@ -1099,9 +2115,9 @@ run_quantitative_bivariate_test <-
 run_quantitative_bivariate_test(
   x_vector = original_df$area_interperso,
   y_vector = original_df$adiccion_rrss,
-  x_label = "Puntaje Autoestima Factor Area Interpersonal",
+  x_label = "Puntaje Autoestima Factor Área Interpersonal",
   y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
-  title = "Relación entre Puntaje Total Constructo Adicción a las Redes Sociales y Factor Area Interpersonal"
+  title = "Relación entre Puntaje Total Constructo Adicción a las Redes Sociales y Factor Área Interpersonal"
 )
 ```
 
@@ -1144,9 +2160,9 @@ run_quantitative_bivariate_test <-
 run_quantitative_bivariate_test(
   x_vector = original_df$area_personal_corporal,
   y_vector = original_df$adiccion_rrss,
-  x_label = "Puntaje Autoestima Factor Area Interpersonal",
+  x_label = "Puntaje Autoestima Factor Area Coporal/Personal",
   y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
-  title = "Relación entre Constructo Adicción a las Redes Sociales y Factor Área Interpersonal"
+  title = "Relación entre Constructo Adicción a las Redes Sociales y Factor Área Coporal/Personal"
 )
 
 ```
@@ -1248,7 +2264,7 @@ run_quantitative_bivariate_test(
 
 ```
 
-#Adicción a las Redes Sociales vs Factor 3 BSQ
+#Adicción a las Redes Sociales vs Factores Antiestéticos y emocionales
 
 ```{r}
 run_quantitative_bivariate_test <-
