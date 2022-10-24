@@ -302,7 +302,8 @@ LeveneTest(original_df$adiccion_rrss, original_df$sexo)
 shapiro.test(original_df$adiccion_rrss)
 
 ggbetweenstats(
-  data  = original_df,
+  data = original_df %>%
+  filter(sexo != "No binario"),
   x     = sexo,
   y     = adiccion_rrss,
   outlier.tagging  = TRUE,
@@ -319,7 +320,8 @@ LeveneTest(original_df$obsesion_rrss, original_df$sexo)
 shapiro.test(original_df$obsesion_rrss)
 
 ggbetweenstats(
-  data  = original_df,
+  data = original_df %>%
+  filter(sexo != "No binario"),
   x     = sexo,
   y     = obsesion_rrss,
   outlier.tagging  = TRUE,
@@ -333,8 +335,10 @@ LeveneTest(original_df$falta_de_control_rrss, original_df$sexo)
 # Normalidad de VD: si p > 0.05 supuesto se cumple
 shapiro.test(original_df$falta_de_control_rrss)
 
+
 ggbetweenstats(
-  data  = original_df,
+  data = original_df %>%
+  filter(sexo != "No binario"),
   x     = sexo,
   y     = falta_de_control_rrss,
   outlier.tagging  = TRUE,
@@ -349,7 +353,8 @@ LeveneTest(original_df$uso_excesivo_rrss, original_df$sexo)
 shapiro.test(original_df$uso_excesivo_rrss)
 
 ggbetweenstats(
-  data  = original_df,
+  data = original_df %>%
+  filter(sexo != "No binario"),
   x     = sexo,
   y     = uso_excesivo_rrss,
   outlier.tagging  = TRUE,
