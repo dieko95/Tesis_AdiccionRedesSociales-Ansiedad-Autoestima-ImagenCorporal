@@ -9,32 +9,43 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-#analisis_bivariante <- function
-#          (data,
-#           x,
-#           y,
-#           outlier.tagging = TRUE,
-#           type = "parametric",
-#           title = "") 
-#    { 
-#  original_df%>%
-#  LeveneTest(y)%>%
-#  shapiro.test(x)
-  
-#  ggbetweenstats(
-#    data = data,
-#    x = x,
-#    y = y,
-#    outlier.tagging = TRUE,
-#    type = "parametric",
-#    title = title)
-#}
+run_quantitative_bivariate_test <-
+  function(xColName,
+           yColName,
+           df,
+           x_label = "",
+           y_label = "",
+           title = "") {
+    x_vector_pvalue <- shapiro.test(original_df[[xColName]])
+    y_vector_pvalue <- shapiro.test(original_df[[yColName]])
+    
+    if ((y_vector_pvalue$p.value > 0.05) & (x_vector_pvalue$p.value > 0.05)) {
+      method <- "pearson"
+    } else {
+      method <- "spearman"
+    }
+    
+    
+    cor_test_result <-
+      cor.test(original_df[[xColName]],
+               original_df[[yColName]],
+               method = method)
+    
+    
+    print(xColName)
+    print(x_vector_pvalue)
+    
+    print(yColName)
+    print(y_vector_pvalue)
 
-#analisis_bivariante(
-#  data = original_df,
-#  x = navegacion_movil_negativo,
-#  y = adiccion_rrss,
-#  title = "Adicción Redes Sociales Según Percepción Negativa de la Navegación Móvil")
+    print(cor_test_result)
+    
+    df %>%
+      ggplot(aes(x = !!rlang::sym(xColName), y = !!rlang::sym(yColName))) +
+      geom_point() +
+      labs(x = x_label, y = y_label, title = title)
+    
+  }
 ```
 
 # INPUT DATA
@@ -423,68 +434,14 @@ original_df %>%
               vjust = -0.5,    # Mover al tope de las barras
               size = 3)
 
-#ANALISIS POR CONSTRUCTO
 
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$adiccion_rrss, original_df$edad)
-
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$adiccion_rrss)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = edad,
-  y     = adiccion_rrss,
-  outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Adicción Redes Sociales Según Edad" # Titulo con variables.
-)
-
-#ANALISIS POR FACTORES DE ARS
-
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$obsesion_rrss, original_df$edad)
-
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$obsesion_rrss)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = edad,
-  y     = obsesion_rrss,
-  outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Obesión de las Redes Sociales Según edad" # Titulo con variables.
-)
-
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$falta_de_control_rrss, original_df$edad)
-
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$falta_de_control_rrss)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = edad,
-  y     = falta_de_control_rrss,
-  outlier.tagging  = TRUE,
-  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Falta de control de las Redes Sociales Según edad" # Titulo con variables.
-)
-
-# Igualdad de varianzas: si p > 0.05 supuesto se cumple
-LeveneTest(original_df$uso_excesivo_rrss, original_df$edad)
-
-# Normalidad de VD: si p > 0.05 supuesto se cumple
-shapiro.test(original_df$uso_excesivo_rrss)
-
-ggbetweenstats(
-  data  = original_df,
-  x     = edad,
-  y     = uso_excesivo_rrss,
-  outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
-  title = "Uso excesivo de las redes sociales Según edad" # Titulo con variables.
+run_quantitative_bivariate_test(
+  xColName = "edad",
+  yColName = "obsesion_rrss",
+  df = original_df,
+  x_label = "Edad",
+  y_label = "Factor Obsesión",
+  title = "Relación entre la edad y factor Obsesión"
 )
 ```
 
@@ -781,7 +738,7 @@ bi_top2 <- ggbetweenstats(
   x     = top1_rrss,
   y     = obsesion_rrss,
   outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Obesión Según top 1 de Redes Sociales" # Titulo con variables.
 )
 
@@ -796,7 +753,7 @@ bi_top3 <- ggbetweenstats(
   x     = top1_rrss,
   y     = falta_de_control_rrss,
   outlier.tagging  = TRUE,
-  type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
+  type = "nonparametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Falta de control Según top 1 de Redes Sociales" # Titulo con variables.
 )
 
@@ -847,6 +804,7 @@ ggbetweenstats(
   type = "parametric", # cambiar a "parametric" si supuestos se cumplen.
   title = "Adicción Redes Sociales Según top 2 de Redes Sociales" # Titulo con variables.
 )
+
 ```
 
 #top 3 redes sociales
@@ -2205,53 +2163,25 @@ ggbetweenstats(
 #Adicción a las Redes Sociales vs área interpersonal
 
 ```{r}
-run_quantitative_bivariate_test <-
-  function(x_vector,
-           y_vector,
-           x_label = "",
-           y_label = "",
-           title = "") {
-    x_vector_pvalue <- shapiro.test(x_vector)
-    y_vector_pvalue <- shapiro.test(y_vector)
-    
-    if (y_vector_pvalue$p.value < 0.05 & x_vector_pvalue$p.value < 0.05) {
-      method <- "pearson"
-    } else {
-      method <- "spearman"
-    }
-    
-    
-    cor_test_result <-
-      cor.test(y_vector,
-               x_vector,
-               method = method)
-    
-    
-    print(x_vector_pvalue)
-    print(y_vector_pvalue)
-    
-    original_df %>%
-      ggplot(aes(x = x_vector, y = y_vector)) +
-      geom_point() +
-      labs(x = x_label, y = y_label, title =
-             title)
-    
-  }
+
 
 auto_disp1 <- run_quantitative_bivariate_test(
-  x_vector = original_df$area_interperso,
-  y_vector = original_df$adiccion_rrss,
+  xColName = "area_interperso",
+  yColName = "adiccion_rrss",
+   df = original_df,
   x_label = "Puntaje Autoestima Factor Área Interpersonal",
   y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
   title = "Relación Constructo ARS vs Área Interpersonal"
 )
 
+
 auto_disp2 <-run_quantitative_bivariate_test(
-  x_vector = original_df$area_personal_corporal,
-  y_vector = original_df$adiccion_rrss,
-  x_label = "Puntaje Autoestima Factor Area Coporal/Personal",
+  xColName = "area_personal_corporal",
+ yColName = "adiccion_rrss",
+ df = original_df,
+  x_label = "Puntaje Autoestima Factor Área Personal Corporal",
   y_label = "Puntaje Total Constructo Adicción a las Redes Sociales",
-  title = "Relación Constructo ARS vs Área Coporal/Personal"
+  title = "Relación Constructo ARS vs Área Personal Corporal"
 )
 
 plot_grid(auto_disp1, auto_disp2)
@@ -2264,29 +2194,33 @@ plot_grid(auto_disp1, auto_disp2)
 #Adicción a las Redes Sociales vs Factor insatifacción con la imagen corporal
 
 ```{r}
+
 bsq_disp1 <- run_quantitative_bivariate_test(
-  x_vector = original_df$insatisfaccion_imagen_corp,
-  y_vector = original_df$adiccion_rrss,
-  x_label = "Insatisfacción en la imagen corporal",
-  y_label = "Constructo Adicción a las Redes Sociales",
-  title = "ARS vs Insatisfacción de la imagen corporal"
-) 
+ xColName = "insatisfaccion_imagen_corp",
+ yColName = "adiccion_rrss",
+ df = original_df,
+ x_label = "Insatisfacción corporal",
+ y_label  = "Constructo de Adicción a las Redes Sociales",
+ title = "Relación entre la ARS vs Insatisfacción corporal"
+)
 
 bsq_disp2 <-run_quantitative_bivariate_test(
-  x_vector = original_df$preocupacion_peso_conductas_asociadas,
-  y_vector = original_df$adiccion_rrss,
-  x_label = "Preocupación por el peso y conductas asociadas",
-  y_label = "Constructo Adicción a las Redes Sociales",
-  title = "ARS vs Preocupación por el peso y coductas asociadas"
-) 
+ xColName = "preocupacion_peso_conductas_asociadas",
+ yColName = "adiccion_rrss",
+ df = original_df,
+ x_label = "Preocupación por el peso y conductas asociadas",
+ y_label  = "Constructo de Adicción a las Redes Sociales",
+ title = "Relación entre la ARS vs Preocupación por el peso y conductas asociadas"
+)
 
 bsq_disp3 <-run_quantitative_bivariate_test(
-  x_vector = original_df$factores_antiesteticos_emociones,
-  y_vector = original_df$adiccion_rrss,
-  x_label = "Factores Antiestéticos y emocionales",
-  y_label = "Constructo Adicción a las Redes Sociales",
-  title = "ARS vs Factores Antiestéticos y emocionales"
-) 
+ xColName = "factores_antiesteticos_emociones",
+ yColName = "adiccion_rrss",
+ df = original_df,
+ x_label = "Factores Antiestéticos y emocionales",
+ y_label  = "Constructo de Adicción a las Redes Sociales",
+ title = "Relación entre la ARS vs Factores Antiestéticos y emocionales"
+)
 
 plot_grid(bsq_disp1,bsq_disp2, bsq_disp3, ncol = 2, nrwo = 2)
 
@@ -2296,14 +2230,44 @@ plot_grid(bsq_disp1,bsq_disp2, bsq_disp3, ncol = 2, nrwo = 2)
 
 ### Variables principales (ARS \~ AUTO, BSQ)
 
+Constructo
+
 ```{r}
 #Creamos la regresion 
-model_lr_constructo_total <- lm(original_df$adiccion_rrss ~ original_df$area_interperso + original_df$area_personal_corporal + original_df$insatisfaccion_imagen_corp + original_df$preocupacion_peso_conductas_asociadas + original_df$factores_antiesteticos_emociones, data = original_df)
+model_lr_constructo_total <- lm(adiccion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
 
 performance::check_model(model_lr_constructo_total)
 summary(model_lr_constructo_total)
 
-model_lr_uso_excesivo_rrss <- lm(original_df$uso_excesivo_rrss ~ original_df$area_interperso + original_df$area_personal_corporal)
+
+```
+
+Obsesion
+
+```{r}
+model_lr_obsesion <- lm(obsesion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
+
+performance::check_model(model_lr_obsesion)
+summary(model_lr_obsesion)
+
+```
+
+Falta de control
+
+```{r}
+model_lr_falta_control <- lm(falta_de_control_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
+
+performance::check_model(model_lr_falta_control)
+summary(model_lr_falta_control)
+```
+
+Uso Excesivo
+
+```{r}
+model_lr_uso_excesivo_rrss <- lm(uso_excesivo_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
+
+performance::check_model(model_lr_uso_excesivo_rrss)
+summary(model_lr_uso_excesivo_rrss)
 ```
 
 ```{r}
@@ -2315,4 +2279,41 @@ summary(original_df$fac2_auto)
 summary(original_df$fac1_bsq)
 summary(original_df$fac2_bsq)
 summary(original_df$fac3_bsq)
+```
+
+```{r}
+
+```
+
+```{r}
+analisis_bivariante <- function
+          (x,
+           y) 
+    { 
+  LeveneTest(y, x)
+  shapiro.test(x)}
+
+grafico_bivariante <- function(data,
+                               x,
+                               y,
+                               title = "") {
+          ggbetweenstats(
+           data = data,
+           x = x,
+           y = y,
+          outlier.tagging = TRUE,
+          type = "",
+          title = "")  }
+
+analisis_bivariante(
+  x = original_df$navegacion_movil_negativo,
+  y = original_df$adiccion_rrss)
+
+grafico_bivariante (
+  data = original_df,
+  x = navegacion_movil_negativo,
+  y = adiccion_rrss,
+  type = "parametric",
+  title = "Hola"
+  )
 ```
