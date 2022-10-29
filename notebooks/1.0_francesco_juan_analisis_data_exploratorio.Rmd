@@ -437,7 +437,34 @@ original_df %>%
 
 run_quantitative_bivariate_test(
   xColName = "edad",
+  yColName = "adiccion_rrss",
+  df = original_df,
+  x_label = "Edad",
+  y_label = "Factor Obsesión",
+  title = "Relación entre la edad y factor Obsesión"
+)
+
+run_quantitative_bivariate_test(
+  xColName = "edad",
   yColName = "obsesion_rrss",
+  df = original_df,
+  x_label = "Edad",
+  y_label = "Factor Obsesión",
+  title = "Relación entre la edad y factor Obsesión"
+)
+
+run_quantitative_bivariate_test(
+  xColName = "edad",
+  yColName = "falta_de_control_rrss",
+  df = original_df,
+  x_label = "Edad",
+  y_label = "Factor Obsesión",
+  title = "Relación entre la edad y factor Obsesión"
+)
+
+run_quantitative_bivariate_test(
+  xColName = "edad",
+  yColName = "uso_excesivo_rrss",
   df = original_df,
   x_label = "Edad",
   y_label = "Factor Obsesión",
@@ -2234,7 +2261,7 @@ Constructo
 
 ```{r}
 #Creamos la regresion 
-model_lr_constructo_total <- lm(adiccion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
+model_lr_constructo_total <- lm(adiccion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones + , data = original_df)
 
 performance::check_model(model_lr_constructo_total)
 summary(model_lr_constructo_total)
