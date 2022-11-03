@@ -927,6 +927,77 @@ ggbetweenstats(
 )
 ```
 
+```{r}
+#ARS
+
+#Constructo
+p1 <- original_df %>% 
+  ggplot(aes(x=adiccion_rrss, fill = adiccion_rrss)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Constructo Adicción a las Redes Sociales")
+
+#Obsesión
+p2 <- original_df %>% 
+  ggplot(aes(x=obsesion_rrss, fill = obsesion_rrss)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Obsesión")
+
+#Falta de control
+p3 <- original_df %>% 
+  ggplot(aes(x=falta_de_control_rrss, fill = falta_de_control_rrss)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Falta de Control")
+
+#Uso Excesivo
+p4 <- original_df %>% 
+  ggplot(aes(x=uso_excesivo_rrss, fill = uso_excesivo_rrss)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Uso Excesivo")
+
+plot_grid(p1,p2,p3,p4)
+```
+
+```{r}
+#área interpersonal
+a1 <- original_df %>% 
+  ggplot(aes(x= area_interperso, fill = area_interperso)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Área Interpersonal")
+
+#área personal/corporal
+a2 <- original_df %>% 
+  ggplot(aes(x=area_personal_corporal, fill = area_personal_corporal)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Área Personal Corporal")
+
+
+
+
+plot_grid(a1,a2)
+```
+
+```{r}
+#Insatisfacción Corporal
+b1 <- original_df %>% 
+  ggplot(aes(x=insatisfaccion_imagen_corp, fill = insatisfaccion_imagen_corp)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Insatisfacción Corporal")
+
+#Preocupación por el Peso Corporal y Conductas Asociadas
+b2 <- original_df %>% 
+  ggplot(aes(x=preocupacion_peso_conductas_asociadas, fill = preocupacion_peso_conductas_asociadas)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor preocupación por el peso y conductas asociadas")
+
+#Factores Antiestéticos
+b3 <- original_df %>% 
+  ggplot(aes(x=factores_antiesteticos_emociones, fill = factores_antiesteticos_emociones)) +
+    geom_histogram() + 
+    labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Antiestéticos y Emociones")
+
+plot_grid(b1,b2, b3)
+```
+
 # ANÁLISIS DESCRIPTIVO UNIVARIANTE Y BIVARIANTE
 
 ### VARIABLE CONTROL
