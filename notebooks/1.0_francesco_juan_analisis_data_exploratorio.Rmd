@@ -935,6 +935,9 @@ p1 <- original_df %>%
   ggplot(aes(x=adiccion_rrss, fill = adiccion_rrss)) +
     geom_histogram() + 
     labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Constructo Adicción a las Redes Sociales")
+original_df %>%
+  select(adiccion_rrss, obsesion_rrss, falta_de_control_rrss, uso_excesivo_rrss)%>%
+  psych::describe()
 
 #Obsesión
 p2 <- original_df %>% 
@@ -970,7 +973,9 @@ a2 <- original_df %>%
     geom_histogram() + 
     labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Área Personal Corporal")
 
-
+original_df %>%
+  select(area_interperso, area_personal_corporal)%>%
+  psych::describe()
 
 
 plot_grid(a1,a2)
@@ -994,6 +999,10 @@ b3 <- original_df %>%
   ggplot(aes(x=factores_antiesteticos_emociones, fill = factores_antiesteticos_emociones)) +
     geom_histogram() + 
     labs(x= "Puntaje normalizado", y= "Frecuencia", title = "Factor Antiestéticos y Emociones")
+
+original_df %>%
+  select(insatisfaccion_imagen_corp, preocupacion_peso_conductas_asociadas, factores_antiesteticos_emociones)%>%
+  psych::describe()
 
 plot_grid(b1,b2, b3)
 ```
