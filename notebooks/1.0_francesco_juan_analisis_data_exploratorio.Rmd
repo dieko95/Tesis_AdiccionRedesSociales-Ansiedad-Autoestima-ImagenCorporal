@@ -2341,7 +2341,7 @@ Constructo
 
 ```{r}
 #Creamos la regresion 
-model_lr_constructo_total <- lm(adiccion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones + , data = original_df)
+model_lr_constructo_total <- lm(adiccion_rrss ~ area_interperso + area_personal_corporal + insatisfaccion_imagen_corp + preocupacion_peso_conductas_asociadas + factores_antiesteticos_emociones, data = original_df)
 
 performance::check_model(model_lr_constructo_total)
 summary(model_lr_constructo_total)
@@ -2378,25 +2378,12 @@ summary(model_lr_uso_excesivo_rrss)
 ```
 
 ```{r}
-#Multicolinealidad 
-car::vif(model_lr)
 
-summary(original_df$fac1_auto)
-summary(original_df$fac2_auto)
-summary(original_df$fac1_bsq)
-summary(original_df$fac2_bsq)
-summary(original_df$fac3_bsq)
-```
-
-```{r}
-
-```
-
-```{r}
+#Intento de creación de funcion para crear graficos mas facil
 analisis_bivariante <- function
-          (x,
-           y) 
-    { 
+(x,
+ y)
+{
   LeveneTest(y, x)
   shapiro.test(x)}
 
@@ -2404,13 +2391,13 @@ grafico_bivariante <- function(data,
                                x,
                                y,
                                title = "") {
-          ggbetweenstats(
-           data = data,
-           x = x,
-           y = y,
-          outlier.tagging = TRUE,
-          type = "",
-          title = "")  }
+  ggbetweenstats(
+    data = data,
+    x = x,
+    y = y,
+    outlier.tagging = TRUE,
+    type = "",
+    title = "")  }
 
 analisis_bivariante(
   x = original_df$navegacion_movil_negativo,
@@ -2422,5 +2409,5 @@ grafico_bivariante (
   y = adiccion_rrss,
   type = "parametric",
   title = "Hola"
-  )
+)
 ```
